@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { FlowerTop, FlowerBottom, FlowerLeft, FlowerRight } from "./FloralDecorations";
 
-// Set your wedding date here
 const WEDDING_DATE = new Date("2025-08-23T14:00:00");
 
 interface TimeLeft {
@@ -14,7 +14,7 @@ interface TimeLeft {
 
 function calculateTimeLeft(): TimeLeft {
   const difference = +WEDDING_DATE - +new Date();
-  
+
   if (difference > 0) {
     return {
       days: Math.floor(difference / (1000 * 60 * 60 * 24)),
@@ -23,7 +23,7 @@ function calculateTimeLeft(): TimeLeft {
       seconds: Math.floor((difference / 1000) % 60),
     };
   }
-  
+
   return { days: 0, hours: 0, minutes: 0, seconds: 0 };
 }
 
@@ -43,51 +43,89 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex flex-col items-center justify-center px-6 overflow-hidden"
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#eef4f8]"
     >
-      {/* Decorative floral elements - placeholder for custom designs */}
-      <div className="absolute top-0 left-0 w-64 h-64 opacity-20 pointer-events-none">
-        <svg viewBox="0 0 200 200" className="w-full h-full text-[#9CAF88]">
-          <path
-            fill="currentColor"
-            d="M40,120 Q60,80 100,60 Q80,100 60,140 Q40,160 40,120 M100,60 Q140,40 160,80 Q120,80 100,60"
-          />
-        </svg>
-      </div>
-      <div className="absolute bottom-0 right-0 w-64 h-64 opacity-20 pointer-events-none rotate-180">
-        <svg viewBox="0 0 200 200" className="w-full h-full text-[#9CAF88]">
-          <path
-            fill="currentColor"
-            d="M40,120 Q60,80 100,60 Q80,100 60,140 Q40,160 40,120 M100,60 Q140,40 160,80 Q120,80 100,60"
-          />
-        </svg>
+      {/* Top flowers */}
+      <div className="absolute top-0 left-0 right-0 z-10">
+        <FlowerTop />
       </div>
 
-      {/* Main Content */}
-      <div className="text-center z-10">
-        <p className="text-[#9CAF88] uppercase tracking-[0.3em] text-sm mb-4 font-medium">
-          We&apos;re getting married
+      {/* Bottom flowers */}
+      <div className="absolute bottom-0 left-0 right-0 z-10">
+        <FlowerBottom />
+      </div>
+
+      {/* Left flowers */}
+      <div className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-24 md:w-40 lg:w-52">
+        <FlowerLeft />
+      </div>
+
+      {/* Right flowers */}
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-24 md:w-40 lg:w-52">
+        <FlowerRight />
+      </div>
+
+      {/* Main content */}
+      <div className="relative z-20 flex flex-col items-center text-center px-8 py-32 max-w-2xl mx-auto">
+        {/* Bookmark the Date header */}
+        <p
+          className="font-[family-name:var(--font-script)] text-4xl md:text-5xl text-[#8bb5c7] mb-3"
+          style={{ lineHeight: 1.2 }}
+        >
+          Bookmark the Date
         </p>
 
-        <h1 className="font-[family-name:var(--font-serif)] text-6xl md:text-8xl lg:text-9xl font-light text-[#3D3D3D] mb-2">
+        {/* Ornamental divider */}
+        <div className="flex items-center gap-3 mb-8 w-48">
+          <div className="h-px flex-1 bg-[#b8d2de]" />
+          <div className="w-1.5 h-1.5 rounded-full bg-[#d4a840]" />
+          <div className="h-px flex-1 bg-[#b8d2de]" />
+        </div>
+
+        {/* Names */}
+        <h1
+          className="font-[family-name:var(--font-serif)] font-light text-[#231f20] leading-none"
+          style={{ fontSize: "clamp(4rem, 12vw, 8rem)" }}
+        >
           Dimi
         </h1>
-        <p className="font-[family-name:var(--font-serif)] text-3xl md:text-4xl text-[#C9A962] my-4">
-          &
+
+        <p
+          className="font-[family-name:var(--font-script)] text-[#d4a840] my-2"
+          style={{ fontSize: "clamp(2rem, 6vw, 3.5rem)", lineHeight: 1.2 }}
+        >
+          &amp;
         </p>
-        <h1 className="font-[family-name:var(--font-serif)] text-6xl md:text-8xl lg:text-9xl font-light text-[#3D3D3D] mb-8">
+
+        <h1
+          className="font-[family-name:var(--font-serif)] font-light text-[#231f20] leading-none"
+          style={{ fontSize: "clamp(4rem, 12vw, 8rem)" }}
+        >
           Sarah
         </h1>
 
-        <div className="w-24 h-px bg-[#C9A962] mx-auto mb-8" />
+        {/* Ornamental divider */}
+        <div className="flex items-center gap-3 mt-8 mb-8 w-64">
+          <div className="h-px flex-1 bg-[#b8d2de]" />
+          <div className="w-1.5 h-1.5 rounded-full bg-[#d4a840]" />
+          <div className="w-1 h-1 rounded-full bg-[#8bb5c7]" />
+          <div className="w-1.5 h-1.5 rounded-full bg-[#d4a840]" />
+          <div className="h-px flex-1 bg-[#b8d2de]" />
+        </div>
 
-        <p className="font-[family-name:var(--font-serif)] text-xl md:text-2xl text-[#5A5A5A] mb-12">
-          23rd August 2025 • London, UK
+        {/* Date */}
+        <p className="font-[family-name:var(--font-script)] text-[#6ea0b8] text-2xl md:text-3xl mb-2">
+          AUG &nbsp;|&nbsp; 23 &nbsp;|&nbsp; 2025
+        </p>
+
+        {/* Location */}
+        <p className="font-[family-name:var(--font-serif)] text-[#231f20]/70 tracking-widest uppercase text-sm md:text-base mb-10">
+          London, UK
         </p>
 
         {/* Countdown Timer */}
         {mounted && (
-          <div className="flex justify-center gap-4 md:gap-8">
+          <div className="flex justify-center gap-3 md:gap-6 mb-10">
             {[
               { value: timeLeft.days, label: "Days" },
               { value: timeLeft.hours, label: "Hours" },
@@ -96,24 +134,29 @@ export default function Hero() {
             ].map((item) => (
               <div
                 key={item.label}
-                className="flex flex-col items-center bg-white/50 backdrop-blur-sm rounded-lg p-4 md:p-6 min-w-[70px] md:min-w-[90px] shadow-sm"
+                className="flex flex-col items-center bg-white/70 backdrop-blur-sm rounded-xl p-3 md:p-5 min-w-[64px] md:min-w-[84px] shadow-sm border border-[#b8d2de]/40"
               >
-                <span className="font-[family-name:var(--font-serif)] text-3xl md:text-5xl font-semibold text-[#3D3D3D]">
+                <span className="font-[family-name:var(--font-serif)] text-2xl md:text-4xl font-semibold text-[#231f20]">
                   {item.value.toString().padStart(2, "0")}
                 </span>
-                <span className="text-xs md:text-sm uppercase tracking-wider text-[#5A5A5A] mt-1">
+                <span className="text-[10px] md:text-xs uppercase tracking-widest text-[#8bb5c7] mt-1">
                   {item.label}
                 </span>
               </div>
             ))}
           </div>
         )}
+
+        {/* Formal invitations note */}
+        <p className="font-[family-name:var(--font-serif)] italic text-[#231f20]/50 text-sm tracking-wide">
+          Formal invitations to follow
+        </p>
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 animate-bounce z-20">
         <svg
-          className="w-6 h-6 text-[#9CAF88]"
+          className="w-5 h-5 text-[#8bb5c7]"
           fill="none"
           strokeWidth="2"
           stroke="currentColor"

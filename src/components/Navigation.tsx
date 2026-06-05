@@ -27,16 +27,16 @@ export default function Navigation() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-[#FAF8F5]/95 backdrop-blur-sm shadow-sm py-4"
+          ? "bg-[#eef4f8]/95 backdrop-blur-sm shadow-sm py-4"
           : "bg-transparent py-6"
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
         <Link
           href="#home"
-          className="font-[family-name:var(--font-serif)] text-2xl font-semibold text-[#3D3D3D] hover:text-[#9CAF88] transition-colors"
+          className="font-[family-name:var(--font-script)] text-2xl text-[#231f20] hover:text-[#8bb5c7] transition-colors"
         >
-          D & S
+          D &amp; S
         </Link>
 
         {/* Desktop Navigation */}
@@ -45,7 +45,7 @@ export default function Navigation() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="text-sm font-medium tracking-wide text-[#5A5A5A] hover:text-[#9CAF88] transition-colors uppercase"
+                className="font-[family-name:var(--font-serif)] text-sm font-medium tracking-widest text-[#231f20]/70 hover:text-[#8bb5c7] transition-colors uppercase"
               >
                 {link.label}
               </Link>
@@ -61,17 +61,17 @@ export default function Navigation() {
         >
           <div className="w-6 h-5 flex flex-col justify-between">
             <span
-              className={`block h-0.5 bg-[#3D3D3D] transition-transform ${
+              className={`block h-0.5 bg-[#231f20] transition-transform ${
                 isMobileMenuOpen ? "rotate-45 translate-y-2" : ""
               }`}
             />
             <span
-              className={`block h-0.5 bg-[#3D3D3D] transition-opacity ${
+              className={`block h-0.5 bg-[#231f20] transition-opacity ${
                 isMobileMenuOpen ? "opacity-0" : ""
               }`}
             />
             <span
-              className={`block h-0.5 bg-[#3D3D3D] transition-transform ${
+              className={`block h-0.5 bg-[#231f20] transition-transform ${
                 isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
               }`}
             />
@@ -81,14 +81,14 @@ export default function Navigation() {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-[#FAF8F5]/98 backdrop-blur-sm shadow-lg">
+        <div className="md:hidden absolute top-full left-0 right-0 bg-[#eef4f8]/98 backdrop-blur-sm shadow-lg">
           <ul className="flex flex-col items-center py-6 gap-4">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-sm font-medium tracking-wide text-[#5A5A5A] hover:text-[#9CAF88] transition-colors uppercase"
+                  className="font-[family-name:var(--font-serif)] text-sm font-medium tracking-widest text-[#231f20]/70 hover:text-[#8bb5c7] transition-colors uppercase"
                 >
                   {link.label}
                 </Link>

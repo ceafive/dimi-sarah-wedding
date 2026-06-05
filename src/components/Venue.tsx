@@ -1,23 +1,25 @@
+import { SectionDivider } from "./FloralDecorations";
+
 export default function Venue() {
   return (
     <section id="venue" className="py-24 px-6 bg-white">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <p className="text-[#9CAF88] uppercase tracking-[0.3em] text-sm mb-4 font-medium">
+          <p className="font-[family-name:var(--font-script)] text-[#8bb5c7] text-2xl mb-2">
             Where to find us
           </p>
-          <h2 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-[#3D3D3D] mb-4">
+          <h2 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-[#231f20] mb-6">
             The Venue
           </h2>
-          <div className="w-16 h-px bg-[#C9A962] mx-auto" />
+          <SectionDivider />
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Venue Image Placeholder */}
-          <div className="aspect-[4/3] bg-[#E8DCD5] rounded-xl overflow-hidden flex items-center justify-center">
+          <div className="aspect-[4/3] bg-[#b8d2de]/15 rounded-xl overflow-hidden flex items-center justify-center border border-[#b8d2de]/30">
             <div className="text-center p-8">
               <svg
-                className="w-20 h-20 text-[#9CAF88] mx-auto mb-4"
+                className="w-20 h-20 text-[#8bb5c7] mx-auto mb-4"
                 fill="none"
                 strokeWidth="1.5"
                 stroke="currentColor"
@@ -25,17 +27,17 @@ export default function Venue() {
               >
                 <path d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205l3 1m1.5.5l-1.5-.5M6.75 7.364V3h-3v18m3-13.636l10.5-3.819" />
               </svg>
-              <p className="text-[#5A5A5A]">Venue Photo</p>
+              <p className="font-[family-name:var(--font-serif)] text-[#8bb5c7]">Venue Photo</p>
             </div>
           </div>
 
           {/* Venue Details */}
           <div className="space-y-8">
             <div>
-              <h3 className="font-[family-name:var(--font-serif)] text-3xl text-[#3D3D3D] mb-4">
+              <h3 className="font-[family-name:var(--font-serif)] text-3xl text-[#231f20] mb-4">
                 The Grand Estate
               </h3>
-              <p className="text-[#5A5A5A] leading-relaxed mb-6">
+              <p className="font-[family-name:var(--font-serif)] text-[#231f20]/70 leading-relaxed mb-6 text-lg">
                 A stunning Georgian manor house set within acres of beautiful
                 English gardens. The perfect backdrop for our special day, with
                 its elegant interiors and romantic outdoor spaces.
@@ -44,9 +46,9 @@ export default function Venue() {
 
             <div className="space-y-4">
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-[#FAF8F5] flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 rounded-full bg-[#eef4f8] flex items-center justify-center flex-shrink-0">
                   <svg
-                    className="w-5 h-5 text-[#9CAF88]"
+                    className="w-5 h-5 text-[#8bb5c7]"
                     fill="none"
                     strokeWidth="1.5"
                     stroke="currentColor"
@@ -57,8 +59,8 @@ export default function Venue() {
                   </svg>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-[#3D3D3D] mb-1">Address</h4>
-                  <p className="text-[#5A5A5A]">
+                  <h4 className="font-[family-name:var(--font-serif)] font-semibold text-[#231f20] mb-1">Address</h4>
+                  <p className="font-[family-name:var(--font-serif)] text-[#231f20]/70">
                     The Grand Estate<br />
                     123 Manor Lane<br />
                     Richmond, London<br />
@@ -68,9 +70,9 @@ export default function Venue() {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-[#FAF8F5] flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 rounded-full bg-[#eef4f8] flex items-center justify-center flex-shrink-0">
                   <svg
-                    className="w-5 h-5 text-[#9CAF88]"
+                    className="w-5 h-5 text-[#8bb5c7]"
                     fill="none"
                     strokeWidth="1.5"
                     stroke="currentColor"
@@ -80,17 +82,17 @@ export default function Venue() {
                   </svg>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-[#3D3D3D] mb-1">Parking</h4>
-                  <p className="text-[#5A5A5A]">
+                  <h4 className="font-[family-name:var(--font-serif)] font-semibold text-[#231f20] mb-1">Parking</h4>
+                  <p className="font-[family-name:var(--font-serif)] text-[#231f20]/70">
                     Free parking available on site for all guests
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-[#FAF8F5] flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 rounded-full bg-[#eef4f8] flex items-center justify-center flex-shrink-0">
                   <svg
-                    className="w-5 h-5 text-[#9CAF88]"
+                    className="w-5 h-5 text-[#8bb5c7]"
                     fill="none"
                     strokeWidth="1.5"
                     stroke="currentColor"
@@ -100,8 +102,8 @@ export default function Venue() {
                   </svg>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-[#3D3D3D] mb-1">Getting There</h4>
-                  <p className="text-[#5A5A5A]">
+                  <h4 className="font-[family-name:var(--font-serif)] font-semibold text-[#231f20] mb-1">Getting There</h4>
+                  <p className="font-[family-name:var(--font-serif)] text-[#231f20]/70">
                     10 minutes from Richmond station by taxi.<br />
                     20 minutes from Central London by car.
                   </p>
@@ -113,7 +115,7 @@ export default function Venue() {
               href="https://maps.google.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-[#9CAF88] text-white px-6 py-3 rounded-full font-medium hover:bg-[#7A9568] transition-colors"
+              className="inline-flex items-center gap-2 bg-[#8bb5c7] text-white px-6 py-3 rounded-full font-[family-name:var(--font-serif)] font-medium hover:bg-[#6ea0b8] transition-colors"
             >
               <svg
                 className="w-5 h-5"
@@ -131,7 +133,7 @@ export default function Venue() {
 
         {/* Accommodations */}
         <div className="mt-24">
-          <h3 className="font-[family-name:var(--font-serif)] text-2xl text-center text-[#3D3D3D] mb-12">
+          <h3 className="font-[family-name:var(--font-script)] text-3xl text-center text-[#8bb5c7] mb-12">
             Where to Stay
           </h3>
           <div className="grid md:grid-cols-3 gap-6">
@@ -154,15 +156,15 @@ export default function Venue() {
             ].map((hotel) => (
               <div
                 key={hotel.name}
-                className="bg-[#FAF8F5] rounded-xl p-6 hover:shadow-md transition-shadow"
+                className="bg-[#f5f8fa] rounded-xl p-6 hover:shadow-md transition-shadow border border-[#b8d2de]/20"
               >
-                <h4 className="font-[family-name:var(--font-serif)] text-lg text-[#3D3D3D] mb-2">
+                <h4 className="font-[family-name:var(--font-serif)] text-lg text-[#231f20] mb-2">
                   {hotel.name}
                 </h4>
-                <p className="text-[#5A5A5A] text-sm mb-3">
+                <p className="font-[family-name:var(--font-serif)] text-[#231f20]/60 text-sm mb-3">
                   {hotel.description}
                 </p>
-                <p className="text-[#9CAF88] font-medium">{hotel.price}</p>
+                <p className="font-[family-name:var(--font-script)] text-[#8bb5c7] text-lg">{hotel.price}</p>
               </div>
             ))}
           </div>

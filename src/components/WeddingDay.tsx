@@ -1,3 +1,5 @@
+import { SectionDivider } from "./FloralDecorations";
+
 export default function WeddingDay() {
   const events = [
     {
@@ -53,24 +55,24 @@ export default function WeddingDay() {
   ];
 
   return (
-    <section id="wedding-day" className="py-24 px-6 bg-[#FAF8F5]">
+    <section id="wedding-day" className="py-24 px-6 bg-[#f5f8fa]">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16">
-          <p className="text-[#9CAF88] uppercase tracking-[0.3em] text-sm mb-4 font-medium">
+          <p className="font-[family-name:var(--font-script)] text-[#8bb5c7] text-2xl mb-2">
             The Schedule
           </p>
-          <h2 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-[#3D3D3D] mb-4">
+          <h2 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-[#231f20] mb-6">
             Wedding Day
           </h2>
-          <div className="w-16 h-px bg-[#C9A962] mx-auto mb-6" />
-          <p className="text-[#5A5A5A] max-w-lg mx-auto">
+          <SectionDivider />
+          <p className="font-[family-name:var(--font-serif)] text-[#231f20]/60 mt-6">
             Saturday, 23rd August 2025
           </p>
         </div>
 
         <div className="relative">
           {/* Timeline line */}
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-[#E8DCD5] md:-translate-x-1/2" />
+          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-[#b8d2de] md:-translate-x-1/2" />
 
           <div className="space-y-12">
             {events.map((event, index) => (
@@ -81,7 +83,7 @@ export default function WeddingDay() {
                 }`}
               >
                 {/* Timeline dot */}
-                <div className="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-[#9CAF88] border-4 border-[#FAF8F5] -translate-x-1/2 z-10 mt-6" />
+                <div className="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-[#8bb5c7] border-4 border-[#f5f8fa] -translate-x-1/2 z-10 mt-6" />
 
                 {/* Content card */}
                 <div
@@ -89,17 +91,17 @@ export default function WeddingDay() {
                     index % 2 === 0 ? "md:mr-12" : "md:ml-12"
                   }`}
                 >
-                  <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+                  <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border border-[#b8d2de]/20">
                     <div className="flex items-start gap-4">
-                      <div className="text-[#9CAF88]">{event.icon}</div>
+                      <div className="text-[#8bb5c7]">{event.icon}</div>
                       <div className="flex-1">
-                        <p className="text-[#C9A962] font-semibold text-lg mb-1">
+                        <p className="font-[family-name:var(--font-script)] text-[#d4a840] text-xl mb-1">
                           {event.time}
                         </p>
-                        <h3 className="font-[family-name:var(--font-serif)] text-xl text-[#3D3D3D] mb-2">
+                        <h3 className="font-[family-name:var(--font-serif)] text-xl text-[#231f20] mb-2">
                           {event.title}
                         </h3>
-                        <p className="text-[#5A5A5A] text-sm">
+                        <p className="font-[family-name:var(--font-serif)] text-[#231f20]/60 text-sm">
                           {event.description}
                         </p>
                       </div>
@@ -116,11 +118,14 @@ export default function WeddingDay() {
 
         {/* Dress code */}
         <div className="mt-20 text-center">
-          <div className="inline-block bg-white rounded-xl px-12 py-8 shadow-sm">
-            <h3 className="font-[family-name:var(--font-serif)] text-xl text-[#3D3D3D] mb-2">
+          <div className="inline-block bg-white rounded-xl px-12 py-8 shadow-sm border border-[#b8d2de]/30">
+            <p className="font-[family-name:var(--font-script)] text-[#8bb5c7] text-xl mb-1">
+              Attire
+            </p>
+            <h3 className="font-[family-name:var(--font-serif)] text-xl text-[#231f20] mb-2">
               Dress Code
             </h3>
-            <p className="text-[#C9A962] font-medium text-lg">
+            <p className="font-[family-name:var(--font-serif)] text-[#d4a840] font-medium text-lg">
               Formal / Black Tie Optional
             </p>
           </div>

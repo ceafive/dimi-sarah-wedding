@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { SectionDivider } from "./FloralDecorations";
 
 interface FormData {
   name: string;
@@ -84,10 +85,10 @@ export default function RSVP() {
 
   if (submitResult?.success) {
     return (
-      <section id="rsvp" className="py-24 px-6 bg-[#FAF8F5]">
+      <section id="rsvp" className="py-24 px-6 bg-[#f5f8fa]">
         <div className="max-w-2xl mx-auto text-center">
           <div className="bg-white rounded-2xl p-12 shadow-sm">
-            <div className="w-20 h-20 rounded-full bg-[#9CAF88] flex items-center justify-center mx-auto mb-6">
+            <div className="w-20 h-20 rounded-full bg-[#8bb5c7] flex items-center justify-center mx-auto mb-6">
               <svg
                 className="w-10 h-10 text-white"
                 fill="none"
@@ -98,10 +99,10 @@ export default function RSVP() {
                 <path d="M4.5 12.75l6 6 9-13.5" />
               </svg>
             </div>
-            <h2 className="font-[family-name:var(--font-serif)] text-3xl text-[#3D3D3D] mb-4">
+            <h2 className="font-[family-name:var(--font-serif)] text-3xl text-[#231f20] mb-4">
               Thank You!
             </h2>
-            <p className="text-[#5A5A5A]">{submitResult.message}</p>
+            <p className="text-[#231f20]/70">{submitResult.message}</p>
             <button
               onClick={() => {
                 setSubmitResult(null);
@@ -114,7 +115,7 @@ export default function RSVP() {
                   message: "",
                 });
               }}
-              className="mt-6 text-[#9CAF88] hover:text-[#7A9568] font-medium"
+              className="mt-6 text-[#8bb5c7] hover:text-[#6ea0b8] font-medium"
             >
               Submit another RSVP
             </button>
@@ -125,17 +126,17 @@ export default function RSVP() {
   }
 
   return (
-    <section id="rsvp" className="py-24 px-6 bg-[#FAF8F5]">
+    <section id="rsvp" className="py-24 px-6 bg-[#f5f8fa]">
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-12">
-          <p className="text-[#9CAF88] uppercase tracking-[0.3em] text-sm mb-4 font-medium">
+          <p className="font-[family-name:var(--font-script)] text-[#8bb5c7] text-2xl mb-2">
             Will you join us?
           </p>
-          <h2 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-[#3D3D3D] mb-4">
+          <h2 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-[#231f20] mb-6">
             RSVP
           </h2>
-          <div className="w-16 h-px bg-[#C9A962] mx-auto mb-6" />
-          <p className="text-[#5A5A5A]">Please respond by 1st July 2025</p>
+          <SectionDivider />
+          <p className="font-[family-name:var(--font-serif)] text-[#231f20]/60 mt-6">Please respond by 1st July 2025</p>
         </div>
 
         <form
@@ -154,7 +155,7 @@ export default function RSVP() {
             <div>
               <label
                 htmlFor="name"
-                className="block text-sm font-medium text-[#3D3D3D] mb-2"
+                className="block text-sm font-medium text-[#231f20] mb-2"
               >
                 Full Name *
               </label>
@@ -165,7 +166,7 @@ export default function RSVP() {
                 required
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-lg border border-[#E8DCD5] focus:border-[#9CAF88] focus:ring-2 focus:ring-[#9CAF88]/20 outline-none transition-all text-[#3D3D3D]"
+                className="w-full px-4 py-3 rounded-lg border border-[#b8d2de] focus:border-[#8bb5c7] focus:ring-2 focus:ring-[#8bb5c7]/20 outline-none transition-all text-[#231f20]"
                 placeholder="Your full name"
               />
             </div>
@@ -174,7 +175,7 @@ export default function RSVP() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-[#3D3D3D] mb-2"
+                className="block text-sm font-medium text-[#231f20] mb-2"
               >
                 Email Address *
               </label>
@@ -185,22 +186,22 @@ export default function RSVP() {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-lg border border-[#E8DCD5] focus:border-[#9CAF88] focus:ring-2 focus:ring-[#9CAF88]/20 outline-none transition-all text-[#3D3D3D]"
+                className="w-full px-4 py-3 rounded-lg border border-[#b8d2de] focus:border-[#8bb5c7] focus:ring-2 focus:ring-[#8bb5c7]/20 outline-none transition-all text-[#231f20]"
                 placeholder="your@email.com"
               />
             </div>
 
             {/* Attendance */}
             <div>
-              <label className="block text-sm font-medium text-[#3D3D3D] mb-3">
+              <label className="block text-sm font-medium text-[#231f20] mb-3">
                 Will you be attending? *
               </label>
               <div className="flex flex-col sm:flex-row gap-4">
                 <label
                   className={`flex-1 flex items-center justify-center gap-3 p-4 rounded-lg border-2 cursor-pointer transition-all ${
                     formData.attendance === "attending"
-                      ? "border-[#9CAF88] bg-[#9CAF88]/10"
-                      : "border-[#E8DCD5] hover:border-[#9CAF88]/50"
+                      ? "border-[#8bb5c7] bg-[#8bb5c7]/10"
+                      : "border-[#b8d2de] hover:border-[#8bb5c7]/50"
                   }`}
                 >
                   <input
@@ -214,7 +215,7 @@ export default function RSVP() {
                   <svg
                     className={`w-6 h-6 ${
                       formData.attendance === "attending"
-                        ? "text-[#9CAF88]"
+                        ? "text-[#8bb5c7]"
                         : "text-[#E8DCD5]"
                     }`}
                     fill="none"
@@ -224,15 +225,15 @@ export default function RSVP() {
                   >
                     <path d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <span className="font-medium text-[#3D3D3D]">
+                  <span className="font-medium text-[#231f20]">
                     Joyfully Accept
                   </span>
                 </label>
                 <label
                   className={`flex-1 flex items-center justify-center gap-3 p-4 rounded-lg border-2 cursor-pointer transition-all ${
                     formData.attendance === "not-attending"
-                      ? "border-[#9CAF88] bg-[#9CAF88]/10"
-                      : "border-[#E8DCD5] hover:border-[#9CAF88]/50"
+                      ? "border-[#8bb5c7] bg-[#8bb5c7]/10"
+                      : "border-[#b8d2de] hover:border-[#8bb5c7]/50"
                   }`}
                 >
                   <input
@@ -246,7 +247,7 @@ export default function RSVP() {
                   <svg
                     className={`w-6 h-6 ${
                       formData.attendance === "not-attending"
-                        ? "text-[#9CAF88]"
+                        ? "text-[#8bb5c7]"
                         : "text-[#E8DCD5]"
                     }`}
                     fill="none"
@@ -256,7 +257,7 @@ export default function RSVP() {
                   >
                     <path d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <span className="font-medium text-[#3D3D3D]">
+                  <span className="font-medium text-[#231f20]">
                     Regretfully Decline
                   </span>
                 </label>
@@ -269,7 +270,7 @@ export default function RSVP() {
                 <div>
                   <label
                     htmlFor="guests"
-                    className="block text-sm font-medium text-[#3D3D3D] mb-2"
+                    className="block text-sm font-medium text-[#231f20] mb-2"
                   >
                     Number of Guests *
                   </label>
@@ -278,7 +279,7 @@ export default function RSVP() {
                     name="guests"
                     value={formData.guests}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-[#E8DCD5] focus:border-[#9CAF88] focus:ring-2 focus:ring-[#9CAF88]/20 outline-none transition-all text-[#3D3D3D] bg-white"
+                    className="w-full px-4 py-3 rounded-lg border border-[#b8d2de] focus:border-[#8bb5c7] focus:ring-2 focus:ring-[#8bb5c7]/20 outline-none transition-all text-[#231f20] bg-white"
                   >
                     <option value="1">1 Guest</option>
                     <option value="2">2 Guests</option>
@@ -291,7 +292,7 @@ export default function RSVP() {
                 <div>
                   <label
                     htmlFor="dietary"
-                    className="block text-sm font-medium text-[#3D3D3D] mb-2"
+                    className="block text-sm font-medium text-[#231f20] mb-2"
                   >
                     Dietary Requirements
                   </label>
@@ -301,7 +302,7 @@ export default function RSVP() {
                     name="dietary"
                     value={formData.dietary}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-[#E8DCD5] focus:border-[#9CAF88] focus:ring-2 focus:ring-[#9CAF88]/20 outline-none transition-all text-[#3D3D3D]"
+                    className="w-full px-4 py-3 rounded-lg border border-[#b8d2de] focus:border-[#8bb5c7] focus:ring-2 focus:ring-[#8bb5c7]/20 outline-none transition-all text-[#231f20]"
                     placeholder="Vegetarian, vegan, allergies, etc."
                   />
                 </div>
@@ -312,7 +313,7 @@ export default function RSVP() {
             <div>
               <label
                 htmlFor="message"
-                className="block text-sm font-medium text-[#3D3D3D] mb-2"
+                className="block text-sm font-medium text-[#231f20] mb-2"
               >
                 Message for the Couple
               </label>
@@ -322,7 +323,7 @@ export default function RSVP() {
                 rows={4}
                 value={formData.message}
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-lg border border-[#E8DCD5] focus:border-[#9CAF88] focus:ring-2 focus:ring-[#9CAF88]/20 outline-none transition-all text-[#3D3D3D] resize-none"
+                className="w-full px-4 py-3 rounded-lg border border-[#b8d2de] focus:border-[#8bb5c7] focus:ring-2 focus:ring-[#8bb5c7]/20 outline-none transition-all text-[#231f20] resize-none"
                 placeholder="Share your well wishes..."
               />
             </div>
@@ -331,7 +332,7 @@ export default function RSVP() {
             <button
               type="submit"
               disabled={isSubmitting || !formData.attendance}
-              className="w-full bg-[#9CAF88] text-white py-4 rounded-full font-medium text-lg hover:bg-[#7A9568] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full bg-[#8bb5c7] text-white py-4 rounded-full font-medium text-lg hover:bg-[#6ea0b8] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {isSubmitting ? (
                 <>
