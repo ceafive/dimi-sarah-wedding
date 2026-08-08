@@ -39,17 +39,15 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative flex flex-col items-center justify-center pt-14 pb-24 md:pt-20"
+      className="relative flex scroll-mt-24 flex-col items-center justify-center pt-14 pb-24 md:scroll-mt-28 md:pt-20"
     >
       {/* The save-the-date card — rebuilt in HTML with the wedding fonts. */}
-      <div className="relative mx-auto w-[min(86vw,27.5rem)] lg:w-[min(80vw,36rem)] xl:w-[min(72vw,42rem)]">
+      <div className="relative w-[min(86vw,27.5rem)] lg:w-[min(80vw,36rem)] xl:w-[min(72vw,42rem)]">
         <div className="relative z-10 px-10 pb-16 pt-12 text-center sm:px-12 lg:px-16">
           <p className="font-display text-xl leading-snug text-ink md:text-2xl lg:text-3xl">
             <span className="underline decoration-1 underline-offset-[6px]">
-              Bookmark
+              Bookmark the Date
             </span>
-            <br />
-            the Date
           </p>
 
           <h1 className="mt-9 font-display font-light leading-[1.04] text-ink lg:mt-11">
@@ -74,16 +72,12 @@ export default function Hero() {
               Athens, Greece
             </p>
           </div>
-
-          <p className="mt-9 font-script text-2xl text-cornflower md:text-3xl lg:text-4xl">
-            Formal invitations to follow
-          </p>
         </div>
       </div>
 
       {/* Countdown */}
       <div className="mt-14 flex flex-col items-center">
-        <p className="font-script text-4xl text-cornflower md:text-5xl">
+        <p className="font-sans text-5xl text-cornflower md:text-6xl text-center">
           Counting down to forever
         </p>
         {mounted && (

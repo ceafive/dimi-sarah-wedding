@@ -69,6 +69,15 @@ export function FloralSprig(props: DecoProps) {
   return <Deco src="/floral-sprig.png" w={460} h={260} {...props} />;
 }
 
+// floral-sprig.png is cropped tight to its flowers (unlike the other floral
+// assets, which fade to white), so mix-blend-multiply alone leaves a hard
+// rectangular edge. A soft radial mask fades that crop into the page instead.
+const sprigMask = {
+  maskImage: "radial-gradient(ellipse 65% 60% at center, black 55%, transparent 100%)",
+  WebkitMaskImage:
+    "radial-gradient(ellipse 65% 60% at center, black 55%, transparent 100%)",
+};
+
 /** A small centred floral motif used to separate section headings. */
 export function SprigDivider({ className = "" }: { className?: string }) {
   return (
@@ -83,6 +92,7 @@ export function SprigDivider({ className = "" }: { className?: string }) {
         width={460}
         height={260}
         className="w-24 h-auto mix-blend-multiply"
+        style={sprigMask}
       />
       <span className="h-px w-12 sm:w-16 bg-gradient-to-l from-transparent to-line" />
     </div>

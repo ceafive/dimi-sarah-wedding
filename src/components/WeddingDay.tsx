@@ -73,7 +73,7 @@ export default function WeddingDay() {
     },
     {
       time: "Later",
-      title: "Open Bar",
+      title: "Open Cocktail Bar",
       description:
         "As soon as the food disappears, the bar opens — with three signature cocktails to choose from.",
       icon: (
@@ -91,10 +91,13 @@ export default function WeddingDay() {
   ];
 
   return (
-    <section id="wedding-day" className="relative py-24 md:py-28">
+    <section
+      id="wedding-day"
+      className="relative scroll-mt-24 py-24 md:scroll-mt-28 md:py-28"
+    >
       <div className="mx-auto max-w-4xl">
         <div className="mb-14 text-center">
-          <p className="font-script text-3xl text-cornflower md:text-4xl">
+          <p className="font-sans text-4xl text-cornflower md:text-5xl">
             The order of the day
           </p>
           <h2 className="mt-1 font-display text-4xl text-ink md:text-5xl">
@@ -117,7 +120,7 @@ export default function WeddingDay() {
                 <h3 className="mt-2 font-display text-2xl text-ink md:text-3xl">
                   {event.title}
                 </h3>
-                <p className="mx-auto mt-3 max-w-md font-serif text-base leading-relaxed text-ink-soft">
+                <p className="mx-auto mt-3 max-w-md font-sans text-lg leading-relaxed text-ink-soft">
                   {event.description}
                 </p>
               </div>
@@ -129,8 +132,11 @@ export default function WeddingDay() {
         {/* Good to know */}
         <div className="mt-16 text-center">
           <div className="inline-block max-w-xl rounded-sm border border-line bg-cream px-10 py-7">
-            <p className="font-script text-2xl text-cornflower">Good to know</p>
-            <p className="mt-2 font-serif text-lg leading-relaxed text-ink-soft">
+            <p className="font-sans text-3xl text-cornflower">Good to know</p>
+            <p className="mt-2 font-serif italic text-lg leading-relaxed text-ink-soft">
+              Dress code is cocktail attire.
+            </p>
+            <p className="mt-2 font-serif italic text-lg leading-relaxed text-ink-soft">
               We’re right on the beach, so the evening can get cool once the sun
               is down. Bring a shawl or a light layer, and shoes you’re happy to
               wear near the sand.

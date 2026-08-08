@@ -3,27 +3,12 @@ import { SprigDivider } from "./FloralDecorations";
 type Hotel = { name: string; href: string; note?: string; airbnb?: boolean };
 
 const hotels: Hotel[] = [
-  {
-    name: "Zeus Essence by Ramada Athens",
-    href: "https://www.zeusintl.com/zeus-essence-ramada-athens",
-  },
-  {
-    name: "Ramada Athens Club Attica Riviera",
-    href: "https://www.wyndhamhotels.com/ramada/nea-makri-greece/ramada-athens-club-attica-riviera/overview?CID=LC:wmcic5n98gs1g0r:51120&iata=00093796",
-    note: "Nea Makri",
-  },
-  {
-    name: "NLH Athens — Mati",
-    href: "https://www.nlh.gr/hotels/athens-mati/",
-    note: "Mati",
-  },
+  { name: "Golden Coast", href: "https://goldencoast.gr/" },
   { name: "Cabo Verde", href: "https://www.caboverde.gr/" },
   {
     name: "Marathon Beach Resort",
     href: "https://www.marathonbeachresort.com/",
   },
-  { name: "Golden Coast", href: "https://goldencoast.gr/" },
-  { name: "Thomas Beach Hotel", href: "https://www.thomasbeachhotel.com.gr/" },
   {
     name: "Airbnb near the venue",
     href: "https://tinyurl.com/59xshmbm",
@@ -48,16 +33,19 @@ function ArrowIcon() {
 
 export default function Venue() {
   return (
-    <section id="venue" className="relative py-24 md:py-28">
+    <section
+      id="venue"
+      className="relative scroll-mt-24 py-24 md:scroll-mt-28 md:py-28"
+    >
       <div className="mx-auto max-w-4xl">
         <div className="mb-12 text-center">
-          <p className="font-script text-3xl text-cornflower md:text-4xl">
+          <p className="font-sans text-4xl text-cornflower md:text-5xl">
             Where to find us
           </p>
           <h2 className="mt-1 font-display text-4xl text-ink md:text-5xl">
             The Venue
           </h2>
-          <SprigDivider className="mt-6" />
+          {/* <SprigDivider className="mt-6" /> */}
         </div>
 
         {/* Venue card */}
@@ -77,10 +65,10 @@ export default function Venue() {
           <h3 className="mt-5 font-display text-3xl text-ink md:text-4xl">
             Galázia Aktí Schiniás
           </h3>
-          <p className="mt-3 font-serif text-lg leading-relaxed text-ink-soft">
+          <p className="mt-3 font-serif text-xl leading-relaxed text-ink-soft">
             206 Leof. Poseidonos, 190 07
             <br />
-            Schinias Beach, Marathónas, Greece
+            Schinias Beach, Marathónas (Nr Athens), Greece
           </p>
           <p className="mx-auto mt-4 max-w-md font-serif text-base italic text-ink-soft">
             Depending on where you stay, you may need a hired car or transport
@@ -92,7 +80,7 @@ export default function Venue() {
               href="https://maps.app.goo.gl/j8paf9Wv2gK9tDgX7"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-cornflower px-7 py-3 text-sm font-medium uppercase tracking-[0.14em] text-white transition-colors hover:bg-cornflower-dark"
+              className="inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-cornflower px-5 py-3 text-xs font-medium uppercase tracking-[0.08em] text-white transition-colors hover:bg-cornflower-dark sm:px-7 sm:text-sm sm:tracking-[0.14em]"
             >
               <svg
                 className="h-5 w-5"
@@ -110,7 +98,7 @@ export default function Venue() {
               href="https://galaziaakti.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-cornflower px-7 py-3 text-sm font-medium uppercase tracking-[0.14em] text-cornflower transition-colors hover:bg-cornflower hover:text-white"
+              className="inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-cornflower px-5 py-3 text-xs font-medium uppercase tracking-[0.08em] text-cornflower transition-colors hover:bg-cornflower hover:text-white sm:px-7 sm:text-sm sm:tracking-[0.14em]"
             >
               Venue website
               <ArrowIcon />
@@ -120,7 +108,7 @@ export default function Venue() {
 
         {/* Accommodation */}
         <div className="mt-20">
-          <h3 className="mb-3 text-center font-script text-3xl text-cornflower md:text-4xl">
+          <h3 className="mb-3 text-center font-sans text-4xl text-cornflower md:text-5xl">
             Where to Stay
           </h3>
           <p className="mx-auto mb-10 max-w-xl text-center font-serif text-lg text-ink-soft">

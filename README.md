@@ -55,6 +55,7 @@ cp .env.example .env.local
 ```
 
 Edit `.env.local`:
+
 ```env
 TURSO_DATABASE_URL=libsql://dimi-sarah-wedding-xxx.turso.io
 TURSO_AUTH_TOKEN=eyJ...
@@ -76,6 +77,7 @@ Open [http://localhost:3000](http://localhost:3000)
 ## API Endpoints
 
 ### Submit RSVP
+
 ```http
 POST /api/rsvp
 Content-Type: application/json
@@ -91,12 +93,14 @@ Content-Type: application/json
 ```
 
 ### View All RSVPs (Admin)
+
 ```http
 GET /api/admin/rsvps
 Authorization: Bearer your-admin-password
 ```
 
 Returns:
+
 ```json
 {
   "success": true,
@@ -125,6 +129,7 @@ Returns:
 ### Custom Domain
 
 After deployment, add your domain in Vercel:
+
 - `dimiandsarah.co.uk`
 - `www.dimiandsarah.co.uk`
 
@@ -133,6 +138,7 @@ After deployment, add your domain in Vercel:
 ### Update Wedding Details
 
 Edit these files:
+
 - `src/components/Hero.tsx` - Names, date, countdown
 - `src/components/OurStory.tsx` - Your story, timeline
 - `src/components/WeddingDay.tsx` - Schedule, dress code
@@ -142,12 +148,13 @@ Edit these files:
 ### Colors
 
 Edit CSS variables in `src/app/globals.css`:
+
 ```css
 :root {
-  --color-cream: #FAF8F5;
-  --color-sage: #9CAF88;
-  --color-gold: #C9A962;
-  --color-charcoal: #3D3D3D;
+  --color-cream: #faf8f5;
+  --color-sage: #9caf88;
+  --color-gold: #c9a962;
+  --color-charcoal: #3d3d3d;
 }
 ```
 

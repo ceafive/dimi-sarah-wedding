@@ -6,7 +6,15 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
 
     // Validate required fields
-    const { name, email, attendance, guests, dietary, message } = body;
+    const {
+      name,
+      email,
+      attendance,
+      dietary,
+      message,
+      songRequest,
+      additionalGuests,
+    } = body;
 
     if (!name || typeof name !== "string" || name.trim().length === 0) {
       return NextResponse.json({ error: "Name is required" }, { status: 400 });
@@ -26,13 +34,26 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const validAdditionalGuests = Array.isArray(additionalGuests)
+      ? additionalGuests
+          .filter(
+            (g): g is { name: string; isChild?: boolean } =>
+              g && typeof g.name === "string" && g.name.trim().length > 0,
+          )
+          .map((g) => ({ name: g.name.trim(), isChild: !!g.isChild }))
+      : [];
+
     const rsvpData: RSVPData = {
       name: name.trim(),
       email: email.trim().toLowerCase(),
       attendance,
-      guests: attendance === "attending" ? parseInt(guests) || 1 : 0,
+      guests:
+        attendance === "attending" ? 1 + validAdditionalGuests.length : 0,
       dietary: dietary?.trim() || undefined,
       message: message?.trim() || undefined,
+      songRequest: songRequest?.trim() || undefined,
+      additionalGuests:
+        attendance === "attending" ? validAdditionalGuests : undefined,
     };
 
     const result = await upsertRSVP(rsvpData);

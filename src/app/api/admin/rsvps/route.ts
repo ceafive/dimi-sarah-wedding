@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getAllRSVPs, getRSVPStats } from "@/lib/db";
 
 // Simple admin password protection (set in .env.local)
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "dimi-sarah-2025";
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "";
 
 export async function GET(request: Request) {
   try {

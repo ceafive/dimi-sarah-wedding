@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 /* Map Tailwind font utilities to the next/font variables.
-   Display + serif both ride on CoFo Raffine; script is Gabriola. */
+   Display + serif both ride on CoFo Raffine; sans is Gabriola. */
 @theme inline {
   --font-display: var(--font-serif);
   --font-serif: var(--font-serif);
-  --font-script: var(--font-script);
+  --font-sans: var(--font-sans);
 }
 
 /* Editorial invitation palette — warm off-white ground, charcoal ink,
@@ -61,9 +61,13 @@ body {
   color: #231f20;
 }
 
-/* Letter-spaced caps used for nav + small labels, à la the invitation. */
+/* Letter-spaced caps used for nav + small labels, à la the invitation.
+   CoFo Raffine's regular weight is very thin/high-contrast, which reads
+   fine at display sizes but nearly disappears at small caption sizes —
+   bump to medium here so labels stay legible. */
 .tracking-caps {
   letter-spacing: 0.22em;
+  font-weight: 500;
 }
 
 /* Hairline divider rule. */

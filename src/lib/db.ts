@@ -35,10 +35,22 @@ export async function initializeDatabase() {
       guests INTEGER DEFAULT 1,
       dietary TEXT,
       message TEXT,
+      song_request TEXT,
+      additional_guests TEXT,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
       updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )
   `);
+
+  // Backfill columns for databases created before song requests / extra
+  // guests existed — no-ops once the columns are present.
+  for (const column of ["song_request TEXT", "additional_guests TEXT"]) {
+    try {
+      await database.execute(`ALTER TABLE rsvps ADD COLUMN ${column}`);
+    } catch {
+      // Column already exists.
+    }
+  }
 
   // Index for quick lookups
   await database.execute(`
@@ -51,6 +63,11 @@ export async function initializeDatabase() {
 }
 
 // RSVP Types
+export interface AdditionalGuest {
+  name: string;
+  isChild: boolean;
+}
+
 export interface RSVPData {
   name: string;
   email: string;
@@ -58,10 +75,14 @@ export interface RSVPData {
   guests?: number;
   dietary?: string;
   message?: string;
+  songRequest?: string;
+  additionalGuests?: AdditionalGuest[];
 }
 
-export interface RSVPRecord extends RSVPData {
+export interface RSVPRecord extends Omit<RSVPData, "additionalGuests"> {
   id: number;
+  additional_guests: string | null;
+  song_request: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -73,16 +94,22 @@ export async function upsertRSVP(data: RSVPData): Promise<RSVPRecord> {
   // Ensure table exists
   await initializeDatabase();
 
+  const additionalGuestsJson = data.additionalGuests?.length
+    ? JSON.stringify(data.additionalGuests)
+    : null;
+
   const result = await database.execute({
     sql: `
-      INSERT INTO rsvps (name, email, attendance, guests, dietary, message)
-      VALUES (?, ?, ?, ?, ?, ?)
+      INSERT INTO rsvps (name, email, attendance, guests, dietary, message, song_request, additional_guests)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
       ON CONFLICT(email) DO UPDATE SET
         name = excluded.name,
         attendance = excluded.attendance,
         guests = excluded.guests,
         dietary = excluded.dietary,
         message = excluded.message,
+        song_request = excluded.song_request,
+        additional_guests = excluded.additional_guests,
         updated_at = CURRENT_TIMESTAMP
       RETURNING *
     `,
@@ -93,6 +120,8 @@ export async function upsertRSVP(data: RSVPData): Promise<RSVPRecord> {
       data.guests || 1,
       data.dietary || null,
       data.message || null,
+      data.songRequest || null,
+      additionalGuestsJson,
     ],
   });
 

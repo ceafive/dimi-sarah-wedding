@@ -12,11 +12,8 @@ export default function Footer() {
         </h2>
         <SprigDivider className="mt-6" />
 
-        <p className="mt-9 font-script text-4xl text-cornflower md:text-5xl">
-          Formal invitations to follow
-        </p>
-        <p className="mt-4 font-serif text-xs uppercase tracking-caps text-ink-soft">
-          21 · 08 · 2027 · Galázia Aktí, Schinias Beach, Greece
+        <p className="mt-8 font-serif text-sm uppercase tracking-caps text-ink-soft">
+          21 · 08 · 2027 · Galázia Aktí, Schinias Beach (Nr Athens), Greece
         </p>
       </div>
 

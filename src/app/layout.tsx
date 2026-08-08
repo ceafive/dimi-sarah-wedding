@@ -10,18 +10,18 @@ const raffine = localFont({
     { path: "./fonts/CoFoRaffine-Thin.otf", weight: "200", style: "normal" },
     { path: "./fonts/CoFoRaffine-Light.otf", weight: "300", style: "normal" },
     { path: "./fonts/CoFoRaffine-Regular.otf", weight: "400", style: "normal" },
-    // { path: "./fonts/CoFoRaffine-Medium.otf", weight: "500", style: "normal" },
+    { path: "./fonts/CoFoRaffine-Medium.otf", weight: "500", style: "normal" },
     { path: "./fonts/CoFoRaffine-Bold.otf", weight: "700", style: "normal" },
   ],
-  variable: "--font-serif",
+  variable: "--font-sans",
   display: "swap",
   adjustFontFallback: false,
 });
 
-// Gabriola — calligraphic script for the eyebrow flourishes and accents.
+// Gabriola — used as the site's sans-serif face (addresses, labels, captions).
 const gabriola = localFont({
   src: "./fonts/Gabriola.ttf",
-  variable: "--font-script",
+  variable: "--font-serif",
   display: "swap",
   adjustFontFallback: false,
 });
@@ -45,19 +45,7 @@ export default function RootLayout({
       <body className="antialiased">
         <FloralFrame />
 
-        {/* Top floral border — caps the head of the page (flowers hang down) */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none relative z-0 h-20 w-full -scale-y-100 mix-blend-multiply bg-[url('/floral-band.png')] bg-repeat-x [background-size:auto_100%] md:h-28"
-        />
-
         {children}
-
-        {/* Bottom floral border — closes the foot of the page (flowers point up) */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none relative z-0 h-20 w-full mix-blend-multiply bg-[url('/floral-band.png')] bg-repeat-x [background-size:auto_100%] md:h-28"
-        />
       </body>
     </html>
   );

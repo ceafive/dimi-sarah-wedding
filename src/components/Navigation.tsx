@@ -18,14 +18,14 @@ export default function Navigation() {
     <header className="sticky top-0 z-50 bg-bg/95 backdrop-blur-sm">
       <div className="mx-auto max-w-5xl">
         {/* Masthead: date left, names centred */}
-        <div className="relative flex items-center justify-center py-5 md:py-6">
+        <div className="relative flex items-center justify-center py-5 pr-12 md:py-6 md:pr-0">
           <span className="absolute left-0 hidden font-serif text-xs uppercase tracking-caps text-ink-soft sm:block">
             21 August 2027
           </span>
 
           <Link
             href="#home"
-            className="font-display text-3xl font-medium tracking-wide text-ink transition-colors hover:text-cornflower md:text-4xl"
+            className="font-display text-2xl font-medium tracking-wide text-ink transition-colors hover:text-cornflower sm:text-3xl md:text-4xl"
           >
             Sarah <span className="text-cornflower">&amp;</span> Dimitris
           </Link>
