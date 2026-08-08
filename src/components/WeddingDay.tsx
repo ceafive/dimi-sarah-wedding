@@ -1,53 +1,89 @@
-import { SectionDivider } from "./FloralDecorations";
+import { SprigDivider } from "./FloralDecorations";
 
 export default function WeddingDay() {
   const events = [
     {
-      time: "14:00",
-      title: "Ceremony",
-      description: "Join us as we exchange our vows and say 'I do'",
+      time: "20:15",
+      title: "Welcome Drinks",
+      description:
+        "Grab a homemade lemonade or a glass of cold water while we get ready.",
       icon: (
-        <svg className="w-8 h-8" fill="none" strokeWidth="1.5" stroke="currentColor" viewBox="0 0 24 24">
+        <svg
+          className="h-7 w-7"
+          fill="none"
+          strokeWidth="1.4"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path d="M6 3h12l-1.2 13.2A3 3 0 0113.81 19H10.2a3 3 0 01-2.99-2.8L6 3zM5.5 7h13" />
+          <path d="M12 19v2m-3 0h6" />
+        </svg>
+      ),
+    },
+    {
+      time: "20:30",
+      title: "Wedding Ceremony",
+      description:
+        "In the chapel. A few seats are set out for those who need to sit. There’s a stand with rice & flower petals — if you’re not sure what to do, just follow the crowd.",
+      icon: (
+        <svg
+          className="h-7 w-7"
+          fill="none"
+          strokeWidth="1.4"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
           <path d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
         </svg>
       ),
     },
     {
-      time: "15:00",
-      title: "Drinks Reception",
-      description: "Celebrate with champagne and canapés in the garden",
+      time: "21:00",
+      title: "Cocktail Hour & Canapés",
+      description:
+        "A few bites to get you going, plus a signature cocktail or a glass of bubbly.",
       icon: (
-        <svg className="w-8 h-8" fill="none" strokeWidth="1.5" stroke="currentColor" viewBox="0 0 24 24">
-          <path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        <svg
+          className="h-7 w-7"
+          fill="none"
+          strokeWidth="1.4"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path d="M5 4h14l-7 8-7-8zM12 12v6m-3 0h6" />
         </svg>
       ),
     },
     {
-      time: "17:00",
-      title: "Wedding Breakfast",
-      description: "A delicious three-course meal with speeches",
+      time: "21:30",
+      title: "Wedding Reception",
+      description:
+        "We’ll be seated outside, right on the beach — it can get chilly at night, so bring a shawl or something cosy. Dinner and drinks all around.",
       icon: (
-        <svg className="w-8 h-8" fill="none" strokeWidth="1.5" stroke="currentColor" viewBox="0 0 24 24">
-          <path d="M12 8.25v-1.5m0 1.5c-1.355 0-2.697.056-4.024.166C6.845 8.51 6 9.473 6 10.608v2.513m6-4.87c1.355 0 2.697.055 4.024.165C17.155 8.51 18 9.473 18 10.608v2.513m-3-4.87v-1.5m-6 1.5v-1.5m12 9.75l-1.5.75a3.354 3.354 0 01-3 0 3.354 3.354 0 00-3 0 3.354 3.354 0 01-3 0 3.354 3.354 0 00-3 0 3.354 3.354 0 01-3 0L3 16.5m18-4.5a9 9 0 11-18 0 9 9 0 0118 0z" />
+        <svg
+          className="h-7 w-7"
+          fill="none"
+          strokeWidth="1.4"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path d="M5 3v8a3 3 0 003 3v7M8 3v6M5 6h3M19 3c-1.5 1-2.5 3-2.5 6 0 2 1 3 2.5 3v9" />
         </svg>
       ),
     },
     {
-      time: "20:00",
-      title: "Evening Reception",
-      description: "Dance the night away with live music and entertainment",
+      time: "Later",
+      title: "Open Bar",
+      description:
+        "As soon as the food disappears, the bar opens — with three signature cocktails to choose from.",
       icon: (
-        <svg className="w-8 h-8" fill="none" strokeWidth="1.5" stroke="currentColor" viewBox="0 0 24 24">
-          <path d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z" />
-        </svg>
-      ),
-    },
-    {
-      time: "00:00",
-      title: "Carriages",
-      description: "Time to say goodnight!",
-      icon: (
-        <svg className="w-8 h-8" fill="none" strokeWidth="1.5" stroke="currentColor" viewBox="0 0 24 24">
+        <svg
+          className="h-7 w-7"
+          fill="none"
+          strokeWidth="1.4"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
           <path d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
         </svg>
       ),
@@ -55,78 +91,49 @@ export default function WeddingDay() {
   ];
 
   return (
-    <section id="wedding-day" className="py-24 px-6 bg-[#f5f8fa]">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-16">
-          <p className="font-[family-name:var(--font-script)] text-[#8bb5c7] text-2xl mb-2">
-            The Schedule
+    <section id="wedding-day" className="relative py-24 md:py-28">
+      <div className="mx-auto max-w-4xl">
+        <div className="mb-14 text-center">
+          <p className="font-script text-3xl text-cornflower md:text-4xl">
+            The order of the day
           </p>
-          <h2 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-[#231f20] mb-6">
+          <h2 className="mt-1 font-display text-4xl text-ink md:text-5xl">
             Wedding Day
           </h2>
-          <SectionDivider />
-          <p className="font-[family-name:var(--font-serif)] text-[#231f20]/60 mt-6">
-            Saturday, 23rd August 2025
+          <SprigDivider className="mt-6" />
+          <p className="mt-6 font-serif text-xl italic text-ink-soft">
+            Saturday · 21 August 2027
           </p>
         </div>
 
-        <div className="relative">
-          {/* Timeline line */}
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-[#b8d2de] md:-translate-x-1/2" />
-
-          <div className="space-y-12">
-            {events.map((event, index) => (
-              <div
-                key={event.title}
-                className={`relative flex items-start gap-8 ${
-                  index % 2 === 0 ? "md:flex-row-reverse" : ""
-                }`}
-              >
-                {/* Timeline dot */}
-                <div className="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-[#8bb5c7] border-4 border-[#f5f8fa] -translate-x-1/2 z-10 mt-6" />
-
-                {/* Content card */}
-                <div
-                  className={`flex-1 ml-16 md:ml-0 ${
-                    index % 2 === 0 ? "md:mr-12" : "md:ml-12"
-                  }`}
-                >
-                  <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border border-[#b8d2de]/20">
-                    <div className="flex items-start gap-4">
-                      <div className="text-[#8bb5c7]">{event.icon}</div>
-                      <div className="flex-1">
-                        <p className="font-[family-name:var(--font-script)] text-[#d4a840] text-xl mb-1">
-                          {event.time}
-                        </p>
-                        <h3 className="font-[family-name:var(--font-serif)] text-xl text-[#231f20] mb-2">
-                          {event.title}
-                        </h3>
-                        <p className="font-[family-name:var(--font-serif)] text-[#231f20]/60 text-sm">
-                          {event.description}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Spacer for alternating layout */}
-                <div className="hidden md:block flex-1" />
+        <div className="mx-auto max-w-2xl">
+          {events.map((event, index) => (
+            <div key={event.title}>
+              <div className="flex flex-col items-center text-center">
+                <span className="text-cornflower">{event.icon}</span>
+                <p className="mt-4 font-serif text-sm uppercase tracking-caps text-ink-soft">
+                  {event.time}
+                </p>
+                <h3 className="mt-2 font-display text-2xl text-ink md:text-3xl">
+                  {event.title}
+                </h3>
+                <p className="mx-auto mt-3 max-w-md font-serif text-base leading-relaxed text-ink-soft">
+                  {event.description}
+                </p>
               </div>
-            ))}
-          </div>
+              {index < events.length - 1 && <div className="rule my-10" />}
+            </div>
+          ))}
         </div>
 
-        {/* Dress code */}
-        <div className="mt-20 text-center">
-          <div className="inline-block bg-white rounded-xl px-12 py-8 shadow-sm border border-[#b8d2de]/30">
-            <p className="font-[family-name:var(--font-script)] text-[#8bb5c7] text-xl mb-1">
-              Attire
-            </p>
-            <h3 className="font-[family-name:var(--font-serif)] text-xl text-[#231f20] mb-2">
-              Dress Code
-            </h3>
-            <p className="font-[family-name:var(--font-serif)] text-[#d4a840] font-medium text-lg">
-              Formal / Black Tie Optional
+        {/* Good to know */}
+        <div className="mt-16 text-center">
+          <div className="inline-block max-w-xl rounded-sm border border-line bg-cream px-10 py-7">
+            <p className="font-script text-2xl text-cornflower">Good to know</p>
+            <p className="mt-2 font-serif text-lg leading-relaxed text-ink-soft">
+              We’re right on the beach, so the evening can get cool once the sun
+              is down. Bring a shawl or a light layer, and shoes you’re happy to
+              wear near the sand.
             </p>
           </div>
         </div>

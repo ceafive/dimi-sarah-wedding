@@ -9,31 +9,24 @@ export async function GET(request: Request) {
     // Check for admin password in header
     const authHeader = request.headers.get("Authorization");
     const providedPassword = authHeader?.replace("Bearer ", "");
-    
+
     if (providedPassword !== ADMIN_PASSWORD) {
-      return NextResponse.json(
-        { error: "Unauthorized" },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-    
-    const [rsvps, stats] = await Promise.all([
-      getAllRSVPs(),
-      getRSVPStats(),
-    ]);
-    
+
+    const [rsvps, stats] = await Promise.all([getAllRSVPs(), getRSVPStats()]);
+
     return NextResponse.json({
       success: true,
       stats,
       rsvps,
     });
-    
   } catch (error) {
     console.error("Admin RSVP fetch error:", error);
-    
+
     return NextResponse.json(
       { error: "Something went wrong" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -1,99 +1,92 @@
-import { SectionDivider } from "./FloralDecorations";
+import { SprigDivider } from "./FloralDecorations";
+
+const journey = [
+  {
+    date: "February 2021",
+    title: "A Message on Tinder",
+    description:
+      "“What fantasy books do you like?” — the best opening line ever.",
+  },
+  {
+    date: "Early 2021",
+    title: "Our First Date",
+    description:
+      "The Watermill Tea Room, where a cup of tea turned into the one.",
+  },
+  {
+    date: "Summer 2021",
+    title: "A Trip to Greece",
+    description: "The summer that quietly sealed the feeling for good.",
+  },
+  {
+    date: "2024",
+    title: "Our First Home",
+    description: "Moving in together — with Ares & Hera firmly in charge.",
+  },
+  {
+    date: "Mount Penteli",
+    title: "The Proposal",
+    description: "A question asked on the mountain, with all of Athens below.",
+  },
+  {
+    date: "21 August 2027",
+    title: "We Say “I Do”",
+    description:
+      "On the beach at Galazia Akti, Schinias — our next chapter begins.",
+  },
+];
 
 export default function OurStory() {
   return (
-    <section id="our-story" className="py-24 px-6 bg-white">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-16">
-          <p className="font-[family-name:var(--font-script)] text-[#8bb5c7] text-2xl mb-2">
+    <section id="our-story" className="relative py-24 md:py-28">
+      <div className="mx-auto max-w-3xl">
+        <div className="mb-12 text-center">
+          <p className="font-script text-3xl text-cornflower md:text-4xl">
             How it all began
           </p>
-          <h2 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-[#231f20] mb-6">
+          <h2 className="mt-1 font-display text-4xl text-ink md:text-5xl">
             Our Story
           </h2>
-          <SectionDivider />
+          <SprigDivider className="mt-6" />
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Photo placeholder */}
-          <div className="aspect-[4/5] bg-[#b8d2de]/20 rounded-lg flex items-center justify-center overflow-hidden border border-[#b8d2de]/40">
-            <div className="text-center p-8">
-              <svg
-                className="w-16 h-16 text-[#8bb5c7] mx-auto mb-4"
-                fill="none"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-              </svg>
-              <p className="text-[#8bb5c7] text-sm font-[family-name:var(--font-serif)]">Engagement Photo</p>
-            </div>
-          </div>
+        <div className="space-y-6 text-center">
+          <p className="font-serif text-xl leading-relaxed text-ink-soft md:text-2xl">
+            It started with a simple Tinder message in February 2021 — and one
+            very important question: <em>“what fantasy books do you like?”</em>
+            That was all it took. Our first date at the Watermill Tea Room
+            quickly turned into something more, and Dimitris quietly realised
+            he’d already found the one.
+          </p>
+          <p className="font-serif text-xl leading-relaxed text-ink-soft md:text-2xl">
+            A trip to Greece that summer sealed the feeling, and from there life
+            moved beautifully fast — leading to our first home together in 2024
+            (with Ares and Hera firmly in charge). Balancing Dimitris’ love of
+            planning with Sarah’s spontaneous, creative spirit, we’ve built a
+            life full of laughter, gaming and just the right amount of chaos.
+          </p>
+          <p className="font-serif text-xl leading-relaxed text-ink-soft md:text-2xl">
+            It all led to a proposal on Mount Penteli — and now to this next
+            chapter, one we can’t wait to begin together.
+          </p>
 
-          {/* Story text */}
-          <div className="space-y-6">
-            <p className="font-[family-name:var(--font-serif)] text-[#231f20]/70 leading-relaxed text-lg">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris.
-            </p>
-            <p className="font-[family-name:var(--font-serif)] text-[#231f20]/70 leading-relaxed text-lg">
-              Duis aute irure dolor in reprehenderit in voluptate velit esse
-              cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-              cupidatat non proident, sunt in culpa qui officia deserunt mollit
-              anim id est laborum.
-            </p>
-            <p className="font-[family-name:var(--font-serif)] text-[#231f20]/70 leading-relaxed text-lg">
-              And now, we can&apos;t wait to celebrate this next chapter with
-              all of you — the people who have loved and supported us along the
-              way.
-            </p>
-
-            <div className="pt-4">
-              <p className="font-[family-name:var(--font-script)] text-2xl text-[#d4a840]" style={{ lineHeight: 1.4 }}>
-                &ldquo;Every love story is beautiful, but ours is our
-                favourite.&rdquo;
-              </p>
-            </div>
-          </div>
+          <p className="pt-2 font-script text-3xl text-cornflower md:text-4xl">
+            From one message to forever.
+          </p>
         </div>
 
         {/* Timeline */}
         <div className="mt-20">
-          <h3 className="font-[family-name:var(--font-script)] text-3xl text-center text-[#8bb5c7] mb-12">
+          <h3 className="mb-12 text-center font-script text-3xl text-cornflower">
             Our Journey
           </h3>
           <div className="relative">
-            {/* Timeline line */}
-            <div className="absolute left-1/2 top-0 bottom-0 w-px bg-[#b8d2de] -translate-x-1/2 hidden md:block" />
-
-            <div className="space-y-12">
-              {[
-                {
-                  date: "June 2020",
-                  title: "We First Met",
-                  description: "At a mutual friend's gathering in London",
-                },
-                {
-                  date: "December 2020",
-                  title: "First Date",
-                  description: "A cozy dinner at a little Italian restaurant",
-                },
-                {
-                  date: "March 2024",
-                  title: "The Proposal",
-                  description: "Under the stars in Santorini, Greece",
-                },
-                {
-                  date: "August 2025",
-                  title: "The Wedding",
-                  description: "Our forever begins...",
-                },
-              ].map((event, index) => (
+            <div className="absolute left-1/2 top-0 bottom-0 hidden w-px -translate-x-1/2 bg-line md:block" />
+            <div className="space-y-10">
+              {journey.map((event, index) => (
                 <div
-                  key={event.date}
-                  className={`flex flex-col md:flex-row items-center gap-4 md:gap-8 ${
+                  key={event.title}
+                  className={`flex flex-col items-center gap-4 md:flex-row md:gap-8 ${
                     index % 2 === 0 ? "md:flex-row-reverse" : ""
                   }`}
                 >
@@ -102,18 +95,18 @@ export default function OurStory() {
                       index % 2 === 0 ? "md:text-left" : "md:text-right"
                     }`}
                   >
-                    <p className="font-[family-name:var(--font-script)] text-[#8bb5c7] text-xl mb-1">
+                    <p className="font-script text-2xl text-cornflower">
                       {event.date}
                     </p>
-                    <h4 className="font-[family-name:var(--font-serif)] text-xl text-[#231f20] mb-1">
+                    <h4 className="mt-1 font-display text-xl text-ink">
                       {event.title}
                     </h4>
-                    <p className="font-[family-name:var(--font-serif)] text-[#231f20]/60 text-sm">
+                    <p className="mt-1 font-serif text-lg text-ink-soft">
                       {event.description}
                     </p>
                   </div>
-                  <div className="w-4 h-4 rounded-full bg-[#d4a840] border-4 border-white shadow-sm z-10" />
-                  <div className="flex-1 hidden md:block" />
+                  <div className="z-10 h-3.5 w-3.5 shrink-0 rounded-full border-4 border-white bg-cornflower shadow-sm" />
+                  <div className="hidden flex-1 md:block" />
                 </div>
               ))}
             </div>

@@ -1,71 +1,168 @@
 "use client";
 
 import { useState } from "react";
-import { SectionDivider } from "./FloralDecorations";
+import { SprigDivider } from "./FloralDecorations";
 
-interface FormData {
+// The three events guests scroll through — mirrors the reference RSVP page:
+// two events take an RSVP, the reception is invitation-only (no buttons).
+type RsvpEvent = {
+  id: "welcome" | "ceremony" | "reception";
   name: string;
-  email: string;
-  attendance: "attending" | "not-attending" | "";
-  guests: string;
-  dietary: string;
-  message: string;
-}
+  date: string;
+  time: string;
+  venue: string;
+  address: string[];
+  note: string;
+  rsvp: boolean;
+  inviteNote?: string;
+};
+
+const events: RsvpEvent[] = [
+  {
+    id: "welcome",
+    name: "Welcome Drinks",
+    date: "Saturday, August 21, 2027",
+    time: "8:15 PM",
+    venue: "Galázia Aktí Schiniás",
+    address: [
+      "206 Leof. Poseidonos, 190 07",
+      "Schinias Beach, Marathónas, Greece",
+    ],
+    note: "Homemade lemonade and a glass of something cold while we get ready.",
+    rsvp: true,
+  },
+  {
+    id: "ceremony",
+    name: "Wedding Ceremony",
+    date: "Saturday, August 21, 2027",
+    time: "8:30 PM",
+    venue: "Galázia Aktí Schiniás",
+    address: ["The chapel, on the beach", "Schinias Beach, Marathónas, Greece"],
+    note: "A few seats are set out for those who need them — otherwise just follow the crowd.",
+    rsvp: true,
+  },
+  {
+    id: "reception",
+    name: "Wedding Reception",
+    date: "Saturday, August 21, 2027",
+    time: "9:30 PM",
+    venue: "Galázia Aktí Schiniás",
+    address: ["Right on the beach", "Schinias Beach, Marathónas, Greece"],
+    note: "There’s an outdoor space that can get a little chilly at night — we recommend bringing a shawl or light jacket.",
+    rsvp: false,
+    inviteNote:
+      "You are invited to the reception — dinner, drinks and dancing to follow our ceremony. Just take note of the details if you’re attending.",
+  },
+];
+
+type Answer = "attending" | "not-attending" | "";
 
 interface SubmitResponse {
   success: boolean;
   message: string;
-  error?: string;
 }
 
+function PencilIcon() {
+  return (
+    <svg
+      className="inline h-3.5 w-3.5 text-ink-soft"
+      fill="none"
+      strokeWidth="1.5"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931z" />
+    </svg>
+  );
+}
+
+function NextEvent() {
+  return (
+    <div className="my-12 flex flex-col items-center">
+      <p className="font-serif text-[0.7rem] uppercase tracking-caps text-ink-soft">
+        Next Event
+      </p>
+      <span className="mt-3 flex h-7 w-7 items-center justify-center rounded-full bg-ink text-bg">
+        <svg
+          className="h-3.5 w-3.5"
+          fill="none"
+          strokeWidth="2"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+        </svg>
+      </span>
+    </div>
+  );
+}
+
+const inputClass =
+  "w-full border-0 border-b border-line bg-transparent px-1 py-2 text-center font-serif text-ink outline-none transition-colors placeholder:text-ink-soft/50 focus:border-cornflower";
+
 export default function RSVP() {
-  const [formData, setFormData] = useState<FormData>({
-    name: "",
-    email: "",
-    attendance: "",
-    guests: "1",
-    dietary: "",
-    message: "",
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [answers, setAnswers] = useState<Record<RsvpEvent["id"], Answer>>({
+    welcome: "",
+    ceremony: "",
+    reception: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitResult, setSubmitResult] = useState<SubmitResponse | null>(null);
+  const [result, setResult] = useState<SubmitResponse | null>(null);
+
+  const requiredEvents = events.filter((e) => e.rsvp);
+  const guestLabel = name.trim() ? name.trim().toUpperCase() : "Your Name";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitResult(null);
+    setResult(null);
 
+    if (!name.trim())
+      return setResult({ success: false, message: "Please add your name." });
+    if (!email.includes("@"))
+      return setResult({
+        success: false,
+        message: "Please add a valid email.",
+      });
+    if (requiredEvents.some((ev) => !answers[ev.id]))
+      return setResult({
+        success: false,
+        message: "Please respond to each event that needs an RSVP.",
+      });
+
+    const anyAttending = requiredEvents.some(
+      (ev) => answers[ev.id] === "attending",
+    );
+    const summary = requiredEvents
+      .map(
+        (ev) =>
+          `${ev.name}: ${answers[ev.id] === "attending" ? "Attending" : "Not attending"}`,
+      )
+      .join(" · ");
+
+    setIsSubmitting(true);
     try {
       const response = await fetch("/api/rsvp", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          attendance: formData.attendance,
-          guests: formData.attendance === "attending" ? formData.guests : "0",
-          dietary: formData.dietary,
-          message: formData.message,
+          name: name.trim(),
+          email: email.trim(),
+          attendance: anyAttending ? "attending" : "not-attending",
+          guests: anyAttending ? "1" : "0",
+          message: summary,
         }),
       });
-
       const data = await response.json();
-
-      if (!response.ok) {
-        setSubmitResult({
+      if (!response.ok)
+        setResult({
           success: false,
           message: data.error || "Something went wrong. Please try again.",
         });
-      } else {
-        setSubmitResult({
-          success: true,
-          message: data.message,
-        });
-      }
+      else setResult({ success: true, message: data.message });
     } catch {
-      setSubmitResult({
+      setResult({
         success: false,
         message: "Network error. Please check your connection and try again.",
       });
@@ -74,292 +171,160 @@ export default function RSVP() {
     }
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  if (submitResult?.success) {
+  if (result?.success) {
     return (
-      <section id="rsvp" className="py-24 px-6 bg-[#f5f8fa]">
-        <div className="max-w-2xl mx-auto text-center">
-          <div className="bg-white rounded-2xl p-12 shadow-sm">
-            <div className="w-20 h-20 rounded-full bg-[#8bb5c7] flex items-center justify-center mx-auto mb-6">
-              <svg
-                className="w-10 h-10 text-white"
-                fill="none"
-                strokeWidth="2"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M4.5 12.75l6 6 9-13.5" />
-              </svg>
-            </div>
-            <h2 className="font-[family-name:var(--font-serif)] text-3xl text-[#231f20] mb-4">
-              Thank You!
-            </h2>
-            <p className="text-[#231f20]/70">{submitResult.message}</p>
-            <button
-              onClick={() => {
-                setSubmitResult(null);
-                setFormData({
-                  name: "",
-                  email: "",
-                  attendance: "",
-                  guests: "1",
-                  dietary: "",
-                  message: "",
-                });
-              }}
-              className="mt-6 text-[#8bb5c7] hover:text-[#6ea0b8] font-medium"
-            >
-              Submit another RSVP
-            </button>
-          </div>
+      <section id="rsvp" className="relative py-24 md:py-28">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="font-display text-4xl text-ink md:text-5xl">
+            Thank You
+          </h2>
+          <SprigDivider className="mt-6" />
+          <p className="mt-8 font-serif text-lg text-ink-soft">
+            {result.message}
+          </p>
         </div>
       </section>
     );
   }
 
   return (
-    <section id="rsvp" className="py-24 px-6 bg-[#f5f8fa]">
-      <div className="max-w-2xl mx-auto">
-        <div className="text-center mb-12">
-          <p className="font-[family-name:var(--font-script)] text-[#8bb5c7] text-2xl mb-2">
-            Will you join us?
-          </p>
-          <h2 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-[#231f20] mb-6">
+    <section id="rsvp" className="relative py-24 md:py-28">
+      <div className="mx-auto max-w-3xl">
+        {/* Heading + intro */}
+        <div className="text-center">
+          <h2 className="font-display text-4xl text-ink md:text-5xl lg:text-6xl">
             RSVP
           </h2>
-          <SectionDivider />
-          <p className="font-[family-name:var(--font-serif)] text-[#231f20]/60 mt-6">Please respond by 1st July 2025</p>
+          <p className="mx-auto mt-6 max-w-md font-serif text-lg leading-relaxed text-ink-soft">
+            We have invited you to 3 wedding events, 2 of which require your
+            RSVP. Be sure to scroll all the way down.
+          </p>
+          <SprigDivider className="mt-8" />
         </div>
 
-        <form
-          onSubmit={handleSubmit}
-          className="bg-white rounded-2xl p-8 md:p-12 shadow-sm"
-        >
-          {/* Error message */}
-          {submitResult && !submitResult.success && (
-            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
-              {submitResult.message}
+        <form onSubmit={handleSubmit} className="mt-12">
+          {/* Your details — needed so we know who has replied */}
+          <div className="mx-auto mb-4 grid max-w-md gap-6 sm:grid-cols-2">
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className={inputClass}
+              placeholder="Full name"
+              aria-label="Full name"
+            />
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className={inputClass}
+              placeholder="Email address"
+              aria-label="Email address"
+            />
+          </div>
+
+          {events.map((event, index) => (
+            <div key={event.id}>
+              {/* Event title */}
+              <h3 className="mt-14 mb-8 text-center font-display text-3xl text-ink md:text-4xl">
+                {event.name}
+              </h3>
+
+              <div className="grid items-start gap-10 md:grid-cols-2 md:gap-12">
+                {/* Left — when & where */}
+                <div className="text-center">
+                  <p className="font-serif text-sm uppercase tracking-caps text-ink">
+                    {event.date}
+                  </p>
+                  <p className="mt-3 font-serif text-sm uppercase tracking-caps text-ink-soft">
+                    {event.time}
+                  </p>
+                  <p className="mt-5 font-display text-lg text-ink">
+                    {event.venue}
+                  </p>
+                  {event.address.map((line) => (
+                    <p
+                      key={line}
+                      className="font-serif text-base text-ink-soft"
+                    >
+                      {line}
+                    </p>
+                  ))}
+                  <p className="mx-auto mt-5 max-w-xs font-serif text-base leading-relaxed text-ink-soft">
+                    {event.note}
+                  </p>
+                </div>
+
+                {/* Right — response */}
+                <div className="text-center">
+                  {event.rsvp ? (
+                    <>
+                      <p className="font-serif text-sm uppercase tracking-caps text-ink">
+                        {guestLabel} <PencilIcon />
+                      </p>
+                      <div className="mt-5 flex flex-col justify-center gap-3 sm:flex-row">
+                        {(
+                          [
+                            ["attending", "Will Attend"],
+                            ["not-attending", "Will Not Attend"],
+                          ] as const
+                        ).map(([value, label]) => {
+                          const active = answers[event.id] === value;
+                          return (
+                            <button
+                              key={value}
+                              type="button"
+                              onClick={() =>
+                                setAnswers((p) => ({ ...p, [event.id]: value }))
+                              }
+                              className={`border px-6 py-3 font-serif text-xs uppercase tracking-caps transition-colors ${
+                                active
+                                  ? "border-cornflower bg-cornflower text-white"
+                                  : "border-line text-ink hover:border-cornflower"
+                              }`}
+                            >
+                              {label}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <p className="font-serif text-sm uppercase tracking-caps text-ink">
+                        You are invited to the reception
+                      </p>
+                      <p className="mx-auto mt-5 max-w-xs font-serif text-base leading-relaxed text-ink-soft">
+                        {event.inviteNote}
+                      </p>
+                    </>
+                  )}
+                </div>
+              </div>
+
+              {index < events.length - 1 && (
+                <>
+                  <NextEvent />
+                  <div className="rule" />
+                </>
+              )}
             </div>
+          ))}
+
+          {result && !result.success && (
+            <p className="mt-10 text-center font-serif text-sm text-rose">
+              {result.message}
+            </p>
           )}
 
-          <div className="space-y-6">
-            {/* Name */}
-            <div>
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium text-[#231f20] mb-2"
-              >
-                Full Name *
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                required
-                value={formData.name}
-                onChange={handleChange}
-                className="w-full px-4 py-3 rounded-lg border border-[#b8d2de] focus:border-[#8bb5c7] focus:ring-2 focus:ring-[#8bb5c7]/20 outline-none transition-all text-[#231f20]"
-                placeholder="Your full name"
-              />
-            </div>
-
-            {/* Email */}
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-[#231f20] mb-2"
-              >
-                Email Address *
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                required
-                value={formData.email}
-                onChange={handleChange}
-                className="w-full px-4 py-3 rounded-lg border border-[#b8d2de] focus:border-[#8bb5c7] focus:ring-2 focus:ring-[#8bb5c7]/20 outline-none transition-all text-[#231f20]"
-                placeholder="your@email.com"
-              />
-            </div>
-
-            {/* Attendance */}
-            <div>
-              <label className="block text-sm font-medium text-[#231f20] mb-3">
-                Will you be attending? *
-              </label>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <label
-                  className={`flex-1 flex items-center justify-center gap-3 p-4 rounded-lg border-2 cursor-pointer transition-all ${
-                    formData.attendance === "attending"
-                      ? "border-[#8bb5c7] bg-[#8bb5c7]/10"
-                      : "border-[#b8d2de] hover:border-[#8bb5c7]/50"
-                  }`}
-                >
-                  <input
-                    type="radio"
-                    name="attendance"
-                    value="attending"
-                    checked={formData.attendance === "attending"}
-                    onChange={handleChange}
-                    className="sr-only"
-                  />
-                  <svg
-                    className={`w-6 h-6 ${
-                      formData.attendance === "attending"
-                        ? "text-[#8bb5c7]"
-                        : "text-[#E8DCD5]"
-                    }`}
-                    fill="none"
-                    strokeWidth="2"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <span className="font-medium text-[#231f20]">
-                    Joyfully Accept
-                  </span>
-                </label>
-                <label
-                  className={`flex-1 flex items-center justify-center gap-3 p-4 rounded-lg border-2 cursor-pointer transition-all ${
-                    formData.attendance === "not-attending"
-                      ? "border-[#8bb5c7] bg-[#8bb5c7]/10"
-                      : "border-[#b8d2de] hover:border-[#8bb5c7]/50"
-                  }`}
-                >
-                  <input
-                    type="radio"
-                    name="attendance"
-                    value="not-attending"
-                    checked={formData.attendance === "not-attending"}
-                    onChange={handleChange}
-                    className="sr-only"
-                  />
-                  <svg
-                    className={`w-6 h-6 ${
-                      formData.attendance === "not-attending"
-                        ? "text-[#8bb5c7]"
-                        : "text-[#E8DCD5]"
-                    }`}
-                    fill="none"
-                    strokeWidth="2"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <span className="font-medium text-[#231f20]">
-                    Regretfully Decline
-                  </span>
-                </label>
-              </div>
-            </div>
-
-            {/* Number of Guests - only show if attending */}
-            {formData.attendance === "attending" && (
-              <>
-                <div>
-                  <label
-                    htmlFor="guests"
-                    className="block text-sm font-medium text-[#231f20] mb-2"
-                  >
-                    Number of Guests *
-                  </label>
-                  <select
-                    id="guests"
-                    name="guests"
-                    value={formData.guests}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-[#b8d2de] focus:border-[#8bb5c7] focus:ring-2 focus:ring-[#8bb5c7]/20 outline-none transition-all text-[#231f20] bg-white"
-                  >
-                    <option value="1">1 Guest</option>
-                    <option value="2">2 Guests</option>
-                    <option value="3">3 Guests</option>
-                    <option value="4">4 Guests</option>
-                  </select>
-                </div>
-
-                {/* Dietary Requirements */}
-                <div>
-                  <label
-                    htmlFor="dietary"
-                    className="block text-sm font-medium text-[#231f20] mb-2"
-                  >
-                    Dietary Requirements
-                  </label>
-                  <input
-                    type="text"
-                    id="dietary"
-                    name="dietary"
-                    value={formData.dietary}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-[#b8d2de] focus:border-[#8bb5c7] focus:ring-2 focus:ring-[#8bb5c7]/20 outline-none transition-all text-[#231f20]"
-                    placeholder="Vegetarian, vegan, allergies, etc."
-                  />
-                </div>
-              </>
-            )}
-
-            {/* Message */}
-            <div>
-              <label
-                htmlFor="message"
-                className="block text-sm font-medium text-[#231f20] mb-2"
-              >
-                Message for the Couple
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                rows={4}
-                value={formData.message}
-                onChange={handleChange}
-                className="w-full px-4 py-3 rounded-lg border border-[#b8d2de] focus:border-[#8bb5c7] focus:ring-2 focus:ring-[#8bb5c7]/20 outline-none transition-all text-[#231f20] resize-none"
-                placeholder="Share your well wishes..."
-              />
-            </div>
-
-            {/* Submit Button */}
+          {/* Submit */}
+          <div className="mt-12 flex justify-center">
             <button
               type="submit"
-              disabled={isSubmitting || !formData.attendance}
-              className="w-full bg-[#8bb5c7] text-white py-4 rounded-full font-medium text-lg hover:bg-[#6ea0b8] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              disabled={isSubmitting}
+              className="border border-ink px-12 py-3.5 font-serif text-xs uppercase tracking-caps text-ink transition-colors hover:bg-ink hover:text-bg disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {isSubmitting ? (
-                <>
-                  <svg
-                    className="animate-spin h-5 w-5"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    />
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    />
-                  </svg>
-                  Sending...
-                </>
-              ) : (
-                "Send RSVP"
-              )}
+              {isSubmitting ? "Sending…" : "Submit RSVP"}
             </button>
           </div>
         </form>

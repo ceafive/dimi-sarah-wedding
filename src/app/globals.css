@@ -1,36 +1,73 @@
 @import "tailwindcss";
 
-:root {
-  --color-bg: #eef4f8;
-  --color-charcoal: #231f20;
-  --color-secondary: #a7c5e8;
-  --color-blue-teal: #8bb5c7;
-  --color-blue-teal-dark: #6ea0b8;
-  --color-blue-light: #b8d2de;
-  --color-blue-deep: #4a7a94;
-  --color-sage: #6a9a7a;
-  --color-gold: #d4a840;
-  --color-gold-dark: #c89830;
-  --color-white: #ffffff;
-  --color-section-alt: #f5f8fa;
-}
-
+/* Map Tailwind font utilities to the next/font variables.
+   Display + serif both ride on CoFo Raffine; script is Gabriola. */
 @theme inline {
+  --font-display: var(--font-serif);
   --font-serif: var(--font-serif);
   --font-script: var(--font-script);
 }
 
+/* Editorial invitation palette — warm off-white ground, charcoal ink,
+   hairline rules, with a soft cornflower used sparingly for links. */
+@theme {
+  /* Warm paper ground (like the reference invitation). The floral PNGs ship on
+     a solid white background, so the page sits on this cream and every floral
+     layer is composited with `mix-blend-multiply` — white drops out to the
+     cream, the flowers darken naturally onto it, and there are no white halos. */
+  --color-bg: #f6f3ec;
+  --color-cream: #fbf9f4;
+  --color-cream-deep: #f1ece1;
+  --color-ink: #2b2724;
+  --color-ink-soft: #6f6862;
+  --color-periwinkle: #b5cded;
+  --color-periwinkle-soft: #dbe6f6;
+  --color-cornflower: #6f8bc4;
+  --color-cornflower-dark: #51688f;
+  --color-gold: #c4a052;
+  --color-rose: #d98fa6;
+  --color-sage: #8aa890;
+  --color-line: #d9cfbe;
+}
+
 html {
   scroll-behavior: smooth;
+  /* `clip` keeps the floral edge strips pinned to the true viewport edges
+     without ever showing a horizontal scrollbar — and, unlike `hidden`, it
+     does not turn the page into a scroll container (so the sticky nav works). */
+  overflow-x: clip;
+  /* The whole layout is built in rem (type, spacing, max-w containers), so
+     lifting the root size fluidly scales the entire design up on large
+     monitors — fixing type that otherwise looked tiny past ~1280px while
+     leaving phones/tablets at their tuned 16px. Media-query breakpoints use
+     the browser's initial 16px, so there is no feedback loop here. */
+  font-size: clamp(16px, calc(13.5px + 0.32vw), 22px);
 }
 
 body {
   background-color: var(--color-bg);
-  color: var(--color-charcoal);
-  font-family: var(--font-serif);
+  color: var(--color-ink);
+  /* CoFo Raffine has a small x-height, so it reads smaller than most fonts at
+     a given size — lift the base size and leading to compensate. */
+  font-family: var(--font-serif), Georgia, "Times New Roman", serif;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  font-weight: 400;
+  overflow-x: clip;
 }
 
 ::selection {
-  background-color: var(--color-blue-teal);
-  color: white;
+  background-color: #b5cded;
+  color: #231f20;
+}
+
+/* Letter-spaced caps used for nav + small labels, à la the invitation. */
+.tracking-caps {
+  letter-spacing: 0.22em;
+}
+
+/* Hairline divider rule. */
+.rule {
+  height: 1px;
+  background-color: var(--color-line);
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 
 const navLinks = [
@@ -12,91 +12,87 @@ const navLinks = [
 ];
 
 export default function Navigation() {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-[#eef4f8]/95 backdrop-blur-sm shadow-sm py-4"
-          : "bg-transparent py-6"
-      }`}
-    >
-      <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
-        <Link
-          href="#home"
-          className="font-[family-name:var(--font-script)] text-2xl text-[#231f20] hover:text-[#8bb5c7] transition-colors"
-        >
-          D &amp; S
-        </Link>
+    <header className="sticky top-0 z-50 bg-bg/95 backdrop-blur-sm">
+      <div className="mx-auto max-w-5xl">
+        {/* Masthead: date left, names centred */}
+        <div className="relative flex items-center justify-center py-5 md:py-6">
+          <span className="absolute left-0 hidden font-serif text-xs uppercase tracking-caps text-ink-soft sm:block">
+            21 August 2027
+          </span>
 
-        {/* Desktop Navigation */}
-        <ul className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                className="font-[family-name:var(--font-serif)] text-sm font-medium tracking-widest text-[#231f20]/70 hover:text-[#8bb5c7] transition-colors uppercase"
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+          <Link
+            href="#home"
+            className="font-display text-3xl font-medium tracking-wide text-ink transition-colors hover:text-cornflower md:text-4xl"
+          >
+            Sarah <span className="text-cornflower">&amp;</span> Dimitris
+          </Link>
 
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden p-2"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          <div className="w-6 h-5 flex flex-col justify-between">
-            <span
-              className={`block h-0.5 bg-[#231f20] transition-transform ${
-                isMobileMenuOpen ? "rotate-45 translate-y-2" : ""
-              }`}
-            />
-            <span
-              className={`block h-0.5 bg-[#231f20] transition-opacity ${
-                isMobileMenuOpen ? "opacity-0" : ""
-              }`}
-            />
-            <span
-              className={`block h-0.5 bg-[#231f20] transition-transform ${
-                isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
-              }`}
-            />
-          </div>
-        </button>
-      </div>
+          {/* Mobile toggle */}
+          <button
+            className="absolute right-0 p-2 md:hidden"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            <div className="flex h-5 w-6 flex-col justify-between">
+              <span
+                className={`block h-px bg-ink transition-transform ${
+                  isMobileMenuOpen ? "translate-y-2 rotate-45" : ""
+                }`}
+              />
+              <span
+                className={`block h-px bg-ink transition-opacity ${
+                  isMobileMenuOpen ? "opacity-0" : ""
+                }`}
+              />
+              <span
+                className={`block h-px bg-ink transition-transform ${
+                  isMobileMenuOpen ? "-translate-y-2 -rotate-45" : ""
+                }`}
+              />
+            </div>
+          </button>
+        </div>
 
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-[#eef4f8]/98 backdrop-blur-sm shadow-lg">
-          <ul className="flex flex-col items-center py-6 gap-4">
+        {/* Ruled, letter-spaced nav — desktop */}
+        <div className="hidden md:block">
+          <div className="rule" />
+          <ul className="flex items-center justify-center gap-9 py-3.5">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="font-[family-name:var(--font-serif)] text-sm font-medium tracking-widest text-[#231f20]/70 hover:text-[#8bb5c7] transition-colors uppercase"
+                  className="font-serif text-[0.8rem] uppercase tracking-caps text-ink/75 transition-colors hover:text-cornflower"
                 >
                   {link.label}
                 </Link>
               </li>
             ))}
           </ul>
+          <div className="rule" />
         </div>
-      )}
-    </nav>
+
+        {/* Mobile menu */}
+        {isMobileMenuOpen && (
+          <div className="border-t border-line md:hidden">
+            <ul className="flex flex-col items-center gap-4 py-6">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="font-serif text-[0.8rem] uppercase tracking-caps text-ink/75 transition-colors hover:text-cornflower"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </header>
   );
 }

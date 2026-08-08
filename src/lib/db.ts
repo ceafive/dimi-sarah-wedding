@@ -11,13 +11,13 @@ export function getDb(): Client {
   if (!db) {
     const url = process.env.TURSO_DATABASE_URL;
     const authToken = process.env.TURSO_AUTH_TOKEN;
-    
+
     if (!url || !authToken) {
       throw new Error(
-        "Database not configured. Please set TURSO_DATABASE_URL and TURSO_AUTH_TOKEN in .env.local"
+        "Database not configured. Please set TURSO_DATABASE_URL and TURSO_AUTH_TOKEN in .env.local",
       );
     }
-    
+
     db = createClient({ url, authToken });
   }
   return db;
@@ -39,12 +39,12 @@ export async function initializeDatabase() {
       updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )
   `);
-  
+
   // Index for quick lookups
   await database.execute(`
     CREATE INDEX IF NOT EXISTS idx_rsvps_email ON rsvps(email)
   `);
-  
+
   await database.execute(`
     CREATE INDEX IF NOT EXISTS idx_rsvps_attendance ON rsvps(attendance)
   `);
@@ -69,10 +69,10 @@ export interface RSVPRecord extends RSVPData {
 // Create or update RSVP (upsert by email)
 export async function upsertRSVP(data: RSVPData): Promise<RSVPRecord> {
   const database = getDb();
-  
+
   // Ensure table exists
   await initializeDatabase();
-  
+
   const result = await database.execute({
     sql: `
       INSERT INTO rsvps (name, email, attendance, guests, dietary, message)
@@ -95,25 +95,29 @@ export async function upsertRSVP(data: RSVPData): Promise<RSVPRecord> {
       data.message || null,
     ],
   });
-  
+
   return result.rows[0] as unknown as RSVPRecord;
 }
 
 // Get all RSVPs
 export async function getAllRSVPs(): Promise<RSVPRecord[]> {
   const database = getDb();
-  const result = await database.execute("SELECT * FROM rsvps ORDER BY created_at DESC");
+  const result = await database.execute(
+    "SELECT * FROM rsvps ORDER BY created_at DESC",
+  );
   return result.rows as unknown as RSVPRecord[];
 }
 
 // Get RSVP by email
-export async function getRSVPByEmail(email: string): Promise<RSVPRecord | null> {
+export async function getRSVPByEmail(
+  email: string,
+): Promise<RSVPRecord | null> {
   const database = getDb();
   const result = await database.execute({
     sql: "SELECT * FROM rsvps WHERE email = ?",
     args: [email],
   });
-  
+
   return (result.rows[0] as unknown as RSVPRecord) || null;
 }
 
@@ -128,7 +132,7 @@ export async function getRSVPStats() {
       SUM(CASE WHEN attendance = 'attending' THEN guests ELSE 0 END) as total_guests
     FROM rsvps
   `);
-  
+
   const row = result.rows[0] as Record<string, number>;
   return {
     total: Number(row.total) || 0,

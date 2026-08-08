@@ -1,70 +1,90 @@
 import Image from "next/image";
 
-export function FlowerTop({ className = "" }: { className?: string }) {
+type DecoProps = {
+  className?: string;
+  flipX?: boolean;
+  flipY?: boolean;
+  priority?: boolean;
+};
+
+function Deco({
+  src,
+  w,
+  h,
+  className = "",
+  flipX = false,
+  flipY = false,
+  priority = false,
+}: DecoProps & { src: string; w: number; h: number }) {
+  const transform = [flipX ? "scaleX(-1)" : "", flipY ? "scaleY(-1)" : ""]
+    .join(" ")
+    .trim();
   return (
-    <div className={`pointer-events-none select-none ${className}`} aria-hidden="true">
+    <span
+      aria-hidden="true"
+      className={`pointer-events-none select-none block ${className}`}
+    >
       <Image
-        src="/dimi-flowers-top.png"
+        src={src}
         alt=""
-        width={900}
-        height={280}
-        style={{ width: "100%", height: "auto" }}
-        priority
+        width={w}
+        height={h}
+        priority={priority}
+        className="mix-blend-multiply"
+        style={{
+          width: "100%",
+          height: "auto",
+          transform: transform || undefined,
+        }}
       />
-    </div>
+    </span>
   );
 }
 
-export function FlowerBottom({ className = "" }: { className?: string }) {
-  return (
-    <div className={`pointer-events-none select-none ${className}`} aria-hidden="true">
-      <Image
-        src="/dimi-flowers-bottom.png"
-        alt=""
-        width={900}
-        height={280}
-        style={{ width: "100%", height: "auto" }}
-      />
-    </div>
-  );
+/** Dense top-corner bouquet (the cluster from the top-left of the card). */
+export function FloralCorner(props: DecoProps) {
+  return <Deco src="/floral-corner.png" w={500} h={545} {...props} />;
 }
 
-export function FlowerLeft({ className = "" }: { className?: string }) {
-  return (
-    <div className={`pointer-events-none select-none ${className}`} aria-hidden="true">
-      <Image
-        src="/dimi-flowers-left.png"
-        alt=""
-        width={260}
-        height={600}
-        style={{ width: "100%", height: "auto" }}
-      />
-    </div>
-  );
+/** Lower floral cluster. */
+export function FloralCornerBottom(props: DecoProps) {
+  return <Deco src="/floral-corner-bottom.png" w={560} h={416} {...props} />;
 }
 
-export function FlowerRight({ className = "" }: { className?: string }) {
-  return (
-    <div className={`pointer-events-none select-none ${className}`} aria-hidden="true">
-      <Image
-        src="/dimi-flowers-right.png"
-        alt=""
-        width={260}
-        height={600}
-        style={{ width: "100%", height: "auto" }}
-      />
-    </div>
-  );
+/** Tall vertical floral strip — the left one hides a little cat (Ares & Hera). */
+export function FloralStripLeft(props: DecoProps) {
+  return <Deco src="/floral-strip-left.png" w={300} h={2936} {...props} />;
 }
 
-export function SectionDivider() {
+export function FloralStripRight(props: DecoProps) {
+  return <Deco src="/floral-strip-right.png" w={300} h={2936} {...props} />;
+}
+
+/** Full-width band of wildflowers (use flipY for a top border). */
+export function FloralBand(props: DecoProps) {
+  return <Deco src="/floral-band.png" w={1200} h={263} {...props} />;
+}
+
+export function FloralSprig(props: DecoProps) {
+  return <Deco src="/floral-sprig.png" w={460} h={260} {...props} />;
+}
+
+/** A small centred floral motif used to separate section headings. */
+export function SprigDivider({ className = "" }: { className?: string }) {
   return (
-    <div className="flex items-center justify-center gap-4 py-2">
-      <div className="h-px flex-1 bg-[#b8d2de]" />
-      <div className="w-2 h-2 rounded-full bg-[#d4a840]" />
-      <div className="w-1.5 h-1.5 rounded-full bg-[#8bb5c7]" />
-      <div className="w-2 h-2 rounded-full bg-[#d4a840]" />
-      <div className="h-px flex-1 bg-[#b8d2de]" />
+    <div
+      className={`flex items-center justify-center gap-4 ${className}`}
+      aria-hidden="true"
+    >
+      <span className="h-px w-12 sm:w-16 bg-gradient-to-r from-transparent to-line" />
+      <Image
+        src="/floral-sprig.png"
+        alt=""
+        width={460}
+        height={260}
+        className="w-24 h-auto mix-blend-multiply"
+      />
+      <span className="h-px w-12 sm:w-16 bg-gradient-to-l from-transparent to-line" />
     </div>
   );
 }

@@ -1,171 +1,150 @@
-import { SectionDivider } from "./FloralDecorations";
+import { SprigDivider } from "./FloralDecorations";
+
+type Hotel = { name: string; href: string; note?: string; airbnb?: boolean };
+
+const hotels: Hotel[] = [
+  {
+    name: "Zeus Essence by Ramada Athens",
+    href: "https://www.zeusintl.com/zeus-essence-ramada-athens",
+  },
+  {
+    name: "Ramada Athens Club Attica Riviera",
+    href: "https://www.wyndhamhotels.com/ramada/nea-makri-greece/ramada-athens-club-attica-riviera/overview?CID=LC:wmcic5n98gs1g0r:51120&iata=00093796",
+    note: "Nea Makri",
+  },
+  {
+    name: "NLH Athens — Mati",
+    href: "https://www.nlh.gr/hotels/athens-mati/",
+    note: "Mati",
+  },
+  { name: "Cabo Verde", href: "https://www.caboverde.gr/" },
+  {
+    name: "Marathon Beach Resort",
+    href: "https://www.marathonbeachresort.com/",
+  },
+  { name: "Golden Coast", href: "https://goldencoast.gr/" },
+  { name: "Thomas Beach Hotel", href: "https://www.thomasbeachhotel.com.gr/" },
+  {
+    name: "Airbnb near the venue",
+    href: "https://tinyurl.com/59xshmbm",
+    note: "Self-catering stays",
+    airbnb: true,
+  },
+];
+
+function ArrowIcon() {
+  return (
+    <svg
+      className="h-4 w-4"
+      fill="none"
+      strokeWidth="1.5"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+    </svg>
+  );
+}
 
 export default function Venue() {
   return (
-    <section id="venue" className="py-24 px-6 bg-white">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <p className="font-[family-name:var(--font-script)] text-[#8bb5c7] text-2xl mb-2">
+    <section id="venue" className="relative py-24 md:py-28">
+      <div className="mx-auto max-w-4xl">
+        <div className="mb-12 text-center">
+          <p className="font-script text-3xl text-cornflower md:text-4xl">
             Where to find us
           </p>
-          <h2 className="font-[family-name:var(--font-serif)] text-4xl md:text-5xl text-[#231f20] mb-6">
+          <h2 className="mt-1 font-display text-4xl text-ink md:text-5xl">
             The Venue
           </h2>
-          <SectionDivider />
+          <SprigDivider className="mt-6" />
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Venue Image Placeholder */}
-          <div className="aspect-[4/3] bg-[#b8d2de]/15 rounded-xl overflow-hidden flex items-center justify-center border border-[#b8d2de]/30">
-            <div className="text-center p-8">
-              <svg
-                className="w-20 h-20 text-[#8bb5c7] mx-auto mb-4"
-                fill="none"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205l3 1m1.5.5l-1.5-.5M6.75 7.364V3h-3v18m3-13.636l10.5-3.819" />
-              </svg>
-              <p className="font-[family-name:var(--font-serif)] text-[#8bb5c7]">Venue Photo</p>
-            </div>
-          </div>
+        {/* Venue card */}
+        <div className="mx-auto max-w-2xl rounded-sm border border-line bg-cream px-8 py-10 text-center md:px-12">
+          <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-white text-cornflower ring-1 ring-line">
+            <svg
+              className="h-6 w-6"
+              fill="none"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+            </svg>
+          </span>
+          <h3 className="mt-5 font-display text-3xl text-ink md:text-4xl">
+            Galázia Aktí Schiniás
+          </h3>
+          <p className="mt-3 font-serif text-lg leading-relaxed text-ink-soft">
+            206 Leof. Poseidonos, 190 07
+            <br />
+            Schinias Beach, Marathónas, Greece
+          </p>
+          <p className="mx-auto mt-4 max-w-md font-serif text-base italic text-ink-soft">
+            Depending on where you stay, you may need a hired car or transport
+            to reach the beach.
+          </p>
 
-          {/* Venue Details */}
-          <div className="space-y-8">
-            <div>
-              <h3 className="font-[family-name:var(--font-serif)] text-3xl text-[#231f20] mb-4">
-                The Grand Estate
-              </h3>
-              <p className="font-[family-name:var(--font-serif)] text-[#231f20]/70 leading-relaxed mb-6 text-lg">
-                A stunning Georgian manor house set within acres of beautiful
-                English gardens. The perfect backdrop for our special day, with
-                its elegant interiors and romantic outdoor spaces.
-              </p>
-            </div>
-
-            <div className="space-y-4">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-[#eef4f8] flex items-center justify-center flex-shrink-0">
-                  <svg
-                    className="w-5 h-5 text-[#8bb5c7]"
-                    fill="none"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="font-[family-name:var(--font-serif)] font-semibold text-[#231f20] mb-1">Address</h4>
-                  <p className="font-[family-name:var(--font-serif)] text-[#231f20]/70">
-                    The Grand Estate<br />
-                    123 Manor Lane<br />
-                    Richmond, London<br />
-                    TW10 6AB
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-[#eef4f8] flex items-center justify-center flex-shrink-0">
-                  <svg
-                    className="w-5 h-5 text-[#8bb5c7]"
-                    fill="none"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="font-[family-name:var(--font-serif)] font-semibold text-[#231f20] mb-1">Parking</h4>
-                  <p className="font-[family-name:var(--font-serif)] text-[#231f20]/70">
-                    Free parking available on site for all guests
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-[#eef4f8] flex items-center justify-center flex-shrink-0">
-                  <svg
-                    className="w-5 h-5 text-[#8bb5c7]"
-                    fill="none"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M4.5 12a7.5 7.5 0 0015 0m-15 0a7.5 7.5 0 1115 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077l1.41-.513m14.095-5.13l1.41-.513M5.106 17.785l1.15-.964m11.49-9.642l1.149-.964M7.501 19.795l.75-1.3m7.5-12.99l.75-1.3m-6.063 16.658l.26-1.477m2.605-14.772l.26-1.477m0 17.726l-.26-1.477M10.698 4.614l-.26-1.477M16.5 19.794l-.75-1.299M7.5 4.205L12 12m6.894 5.785l-1.149-.964M6.256 7.178l-1.15-.964m15.352 8.864l-1.41-.513M4.954 9.435l-1.41-.514M12.002 12l-3.75 6.495" />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="font-[family-name:var(--font-serif)] font-semibold text-[#231f20] mb-1">Getting There</h4>
-                  <p className="font-[family-name:var(--font-serif)] text-[#231f20]/70">
-                    10 minutes from Richmond station by taxi.<br />
-                    20 minutes from Central London by car.
-                  </p>
-                </div>
-              </div>
-            </div>
-
+          <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <a
-              href="https://maps.google.com"
+              href="https://maps.app.goo.gl/j8paf9Wv2gK9tDgX7"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-[#8bb5c7] text-white px-6 py-3 rounded-full font-[family-name:var(--font-serif)] font-medium hover:bg-[#6ea0b8] transition-colors"
+              className="inline-flex items-center gap-2 rounded-full bg-cornflower px-7 py-3 text-sm font-medium uppercase tracking-[0.14em] text-white transition-colors hover:bg-cornflower-dark"
             >
               <svg
-                className="w-5 h-5"
+                className="h-5 w-5"
                 fill="none"
                 strokeWidth="1.5"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
               >
-                <path d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" />
+                <path d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
               </svg>
               View on Google Maps
+            </a>
+            <a
+              href="https://galaziaakti.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-cornflower px-7 py-3 text-sm font-medium uppercase tracking-[0.14em] text-cornflower transition-colors hover:bg-cornflower hover:text-white"
+            >
+              Venue website
+              <ArrowIcon />
             </a>
           </div>
         </div>
 
-        {/* Accommodations */}
-        <div className="mt-24">
-          <h3 className="font-[family-name:var(--font-script)] text-3xl text-center text-[#8bb5c7] mb-12">
+        {/* Accommodation */}
+        <div className="mt-20">
+          <h3 className="mb-3 text-center font-script text-3xl text-cornflower md:text-4xl">
             Where to Stay
           </h3>
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              {
-                name: "The Richmond Hotel",
-                description: "Luxury boutique hotel, 5 min from venue",
-                price: "From £150/night",
-              },
-              {
-                name: "The Ivy Guest House",
-                description: "Charming B&B with beautiful gardens",
-                price: "From £95/night",
-              },
-              {
-                name: "Premier Inn Richmond",
-                description: "Modern rooms with great value",
-                price: "From £75/night",
-              },
-            ].map((hotel) => (
-              <div
+          <p className="mx-auto mb-10 max-w-xl text-center font-serif text-lg text-ink-soft">
+            A few places nearby on the Marathon and Nea Makri coast — book
+            early, August fills up fast.
+          </p>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {hotels.map((hotel) => (
+              <a
                 key={hotel.name}
-                className="bg-[#f5f8fa] rounded-xl p-6 hover:shadow-md transition-shadow border border-[#b8d2de]/20"
+                href={hotel.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex flex-col justify-between rounded-sm border border-line bg-cream p-6 transition-shadow hover:shadow-md"
               >
-                <h4 className="font-[family-name:var(--font-serif)] text-lg text-[#231f20] mb-2">
+                <h4 className="font-display text-xl leading-snug text-ink">
                   {hotel.name}
                 </h4>
-                <p className="font-[family-name:var(--font-serif)] text-[#231f20]/60 text-sm mb-3">
-                  {hotel.description}
+                <p className="mt-3 inline-flex items-center gap-1.5 font-serif text-base text-cornflower transition-colors group-hover:text-cornflower-dark">
+                  {hotel.note ??
+                    (hotel.airbnb ? "Browse on Airbnb" : "Visit website")}
+                  <ArrowIcon />
                 </p>
-                <p className="font-[family-name:var(--font-script)] text-[#8bb5c7] text-lg">{hotel.price}</p>
-              </div>
+              </a>
             ))}
           </div>
         </div>
