@@ -1,6 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import OurStory from "@/components/OurStory";
+import Gallery from "@/components/Gallery";
 import WeddingDay from "@/components/WeddingDay";
 import Venue from "@/components/Venue";
 import RSVP from "@/components/RSVP";
@@ -15,6 +16,7 @@ export default function Home() {
       <main>
         <Hero />
         <OurStory />
+        <Gallery />
         <WeddingDay />
         <Venue />
         <RSVP />

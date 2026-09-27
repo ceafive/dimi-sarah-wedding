@@ -75,3 +75,41 @@ body {
   height: 1px;
   background-color: var(--color-line);
 }
+
+/* One-shot "you can swipe this" nudge for the gallery album — peeks the
+   card left then right, like a finger dragging it, the first time it
+   scrolls into view on a touch device. */
+@keyframes swipe-hint {
+  0%,
+  100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  28% {
+    transform: translateX(-22px) rotate(-2.5deg);
+  }
+  55% {
+    transform: translateX(10px) rotate(1.5deg);
+  }
+  78% {
+    transform: translateX(-6px) rotate(-0.8deg);
+  }
+}
+
+.animate-swipe-hint {
+  animation: swipe-hint 1.4s ease-in-out 1;
+}
+
+@keyframes swipe-hint-fade {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  12%,
+  75% {
+    opacity: 1;
+  }
+}
+
+.animate-swipe-hint-fade {
+  animation: swipe-hint-fade 1.4s ease-in-out 1;
+}

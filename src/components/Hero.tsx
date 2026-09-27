@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-// Saturday 21 August 2027, doors at 20:15 — Athens local time (EEST, UTC+3)
-const WEDDING_DATE = new Date("2027-08-21T20:15:00+03:00");
+// Saturday 21 August 2027, be there by 19:00 — Athens local time (EEST, UTC+3)
+const WEDDING_DATE = new Date("2027-08-21T19:00:00+03:00");
 
 interface TimeLeft {
   days: number;

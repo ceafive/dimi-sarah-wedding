@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { SprigDivider } from "./FloralDecorations";
 
-// The three events guests scroll through — mirrors the reference RSVP page:
-// two events take an RSVP, the reception is invitation-only (no buttons).
+// The night guests scroll through — a single itinerary, one RSVP for the
+// whole evening. There's no opting in or out of individual events.
 type RsvpEvent = {
   id: "welcome" | "ceremony" | "reception";
   name: string;
@@ -13,8 +13,6 @@ type RsvpEvent = {
   venue: string;
   address: string[];
   note: string;
-  rsvp: boolean;
-  inviteNote?: string;
 };
 
 const events: RsvpEvent[] = [
@@ -22,42 +20,37 @@ const events: RsvpEvent[] = [
     id: "welcome",
     name: "Welcome Drinks",
     date: "Saturday, August 21, 2027",
-    time: "8:15 PM",
+    time: "7:00 PM",
     venue: "Galázia Aktí Schiniás",
     address: [
       "206 Leof. Poseidonos, 190 07",
       "Schinias Beach, Marathónas (Nr Athens), Greece",
     ],
     note: "Homemade lemonade and a glass of something cold while we get ready.",
-    rsvp: true,
   },
   {
     id: "ceremony",
     name: "Wedding Ceremony",
     date: "Saturday, August 21, 2027",
-    time: "8:30 PM",
+    time: "7:30 PM",
     venue: "Galázia Aktí Schiniás",
     address: [
       "The chapel, on the beach",
       "Schinias Beach, Marathónas (Nr Athens), Greece",
     ],
     note: "A few seats are set out for those who need them — otherwise just follow the crowd.",
-    rsvp: true,
   },
   {
     id: "reception",
     name: "Wedding Reception",
     date: "Saturday, August 21, 2027",
-    time: "9:30 PM",
+    time: "9:15 PM",
     venue: "Galázia Aktí Schiniás",
     address: [
       "Right on the beach",
       "Schinias Beach, Marathónas (Nr Athens), Greece",
     ],
     note: "There’s an outdoor space that can get a little chilly at night — we recommend bringing a shawl or light jacket.",
-    rsvp: false,
-    inviteNote:
-      "You are invited to the reception — dinner, drinks and dancing to follow our ceremony. Just take note of the details if you’re attending.",
   },
 ];
 
@@ -103,16 +96,10 @@ export default function RSVP() {
   const [dietary, setDietary] = useState("");
   const [songRequest, setSongRequest] = useState("");
   const [additionalGuests, setAdditionalGuests] = useState<GuestRow[]>([]);
-  const [answers, setAnswers] = useState<Record<RsvpEvent["id"], Answer>>({
-    welcome: "",
-    ceremony: "",
-    reception: "",
-  });
+  const [answer, setAnswer] = useState<Answer>("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [result, setResult] = useState<SubmitResponse | null>(null);
-  const [missingEventIds, setMissingEventIds] = useState<
-    Set<RsvpEvent["id"]>
-  >(new Set());
+  const [answerMissing, setAnswerMissing] = useState(false);
 
   const addGuestRow = () =>
     setAdditionalGuests((rows) => [...rows, { name: "", isChild: false }]);
@@ -123,11 +110,10 @@ export default function RSVP() {
   const removeGuestRow = (index: number) =>
     setAdditionalGuests((rows) => rows.filter((_, i) => i !== index));
 
-  const requiredEvents = events.filter((e) => e.rsvp);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setResult(null);
-    setMissingEventIds(new Set());
+    setAnswerMissing(false);
 
     if (!name.trim())
       return setResult({
@@ -140,28 +126,18 @@ export default function RSVP() {
         message: "Please add a valid email.",
       });
 
-    const missing = requiredEvents.filter((ev) => !answers[ev.id]);
-    if (missing.length > 0) {
-      setMissingEventIds(new Set(missing.map((ev) => ev.id)));
+    if (!answer) {
+      setAnswerMissing(true);
       document
-        .getElementById(`event-${missing[0].id}`)
+        .getElementById("rsvp-answer")
         ?.scrollIntoView({ behavior: "smooth", block: "center" });
       return setResult({
         success: false,
-        message: "Please respond to each event that needs an RSVP.",
+        message: "Please let us know if you'll be joining us for the night.",
       });
     }
 
-    const anyAttending = requiredEvents.some(
-      (ev) => answers[ev.id] === "attending",
-    );
-    const summary = requiredEvents
-      .map(
-        (ev) =>
-          `${ev.name}: ${answers[ev.id] === "attending" ? "Attending" : "Not attending"}`,
-      )
-      .join(" · ");
-
+    const attending = answer === "attending";
     const validGuests = additionalGuests.filter((g) => g.name.trim());
 
     setIsSubmitting(true);
@@ -172,12 +148,14 @@ export default function RSVP() {
         body: JSON.stringify({
           name: name.trim(),
           email: email.trim(),
-          attendance: anyAttending ? "attending" : "not-attending",
-          guests: anyAttending ? String(1 + validGuests.length) : "0",
+          attendance: attending ? "attending" : "not-attending",
+          guests: attending ? String(1 + validGuests.length) : "0",
           dietary: dietary.trim(),
           songRequest: songRequest.trim(),
-          additionalGuests: anyAttending ? validGuests : [],
-          message: summary,
+          additionalGuests: attending ? validGuests : [],
+          message: attending
+            ? "Attending the full evening"
+            : "Not attending",
         }),
       });
       const data = await response.json();
@@ -228,8 +206,9 @@ export default function RSVP() {
             RSVP
           </h2>
           <p className="mx-auto mt-6 max-w-md font-serif text-lg leading-relaxed text-ink-soft">
-            We have invited you to 3 wedding events, 2 of which require your
-            RSVP. Be sure to scroll all the way down.
+            One RSVP for the whole night — drinks, ceremony, and reception
+            together. No partial attendance, we promise it&rsquo;ll be worth
+            staying for all of it.
           </p>
           <SprigDivider className="mt-8" />
         </div>
@@ -321,90 +300,30 @@ export default function RSVP() {
           </div>
 
           {events.map((event, index) => (
-            <div key={event.id} id={`event-${event.id}`}>
+            <div key={event.id}>
               {/* Event title */}
               <h3 className="mt-14 mb-8 text-center font-display text-3xl text-ink md:text-4xl">
                 {event.name}
               </h3>
 
-              <div className="grid items-start gap-10 md:grid-cols-2 md:gap-12">
-                {/* Left — when & where */}
-                <div className="text-center">
-                  <p className="font-serif text-sm uppercase tracking-caps text-ink">
-                    {event.date}
+              <div className="text-center">
+                <p className="font-serif text-sm uppercase tracking-caps text-ink">
+                  {event.date}
+                </p>
+                <p className="mt-3 font-serif text-sm uppercase tracking-caps text-ink-soft">
+                  {event.time}
+                </p>
+                <p className="mt-5 font-display text-lg text-ink">
+                  {event.venue}
+                </p>
+                {event.address.map((line) => (
+                  <p key={line} className="font-serif text-lg text-ink-soft">
+                    {line}
                   </p>
-                  <p className="mt-3 font-serif text-sm uppercase tracking-caps text-ink-soft">
-                    {event.time}
-                  </p>
-                  <p className="mt-5 font-display text-lg text-ink">
-                    {event.venue}
-                  </p>
-                  {event.address.map((line) => (
-                    <p key={line} className="font-serif text-lg text-ink-soft">
-                      {line}
-                    </p>
-                  ))}
-                  <p className="mx-auto mt-5 max-w-xs font-serif text-base leading-relaxed text-ink-soft">
-                    {event.note}
-                  </p>
-                </div>
-
-                {/* Right — response */}
-                <div className="text-center">
-                  {event.rsvp ? (
-                    <>
-                      <div className="flex flex-col justify-center gap-3 sm:flex-row">
-                        {(
-                          [
-                            ["attending", "Will Attend"],
-                            ["not-attending", "Will Not Attend"],
-                          ] as const
-                        ).map(([value, label]) => {
-                          const active = answers[event.id] === value;
-                          const missing = missingEventIds.has(event.id);
-                          return (
-                            <button
-                              key={value}
-                              type="button"
-                              onClick={() => {
-                                setAnswers((p) => ({ ...p, [event.id]: value }));
-                                setMissingEventIds((p) => {
-                                  if (!p.has(event.id)) return p;
-                                  const next = new Set(p);
-                                  next.delete(event.id);
-                                  return next;
-                                });
-                              }}
-                              className={`border px-6 py-3 font-serif text-xs uppercase tracking-caps transition-colors ${
-                                active
-                                  ? "border-cornflower bg-cornflower text-white"
-                                  : missing
-                                    ? "border-rose text-ink hover:border-cornflower"
-                                    : "border-line text-ink hover:border-cornflower"
-                              }`}
-                            >
-                              {label}
-                            </button>
-                          );
-                        })}
-                      </div>
-                      {missingEventIds.has(event.id) && (
-                        <p className="mt-3 font-serif text-xs text-rose">
-                          Please select one
-                        </p>
-                      )}
-                    </>
-                  ) : (
-                    <>
-                      <p className="font-serif text-sm uppercase tracking-caps text-ink">
-                        You are invited to the reception
-                      </p>
-                      <p className="mx-auto mt-5 max-w-xs font-serif text-base leading-relaxed text-ink-soft">
-                        {event.inviteNote}
-                      </p>
-                    </>
-                  )}
-                </div>
+                ))}
+                <p className="mx-auto mt-5 max-w-xs font-serif text-base leading-relaxed text-ink-soft">
+                  {event.note}
+                </p>
               </div>
 
               {index < events.length - 1 && (
@@ -415,6 +334,51 @@ export default function RSVP() {
               )}
             </div>
           ))}
+
+          {/* One RSVP, for the whole night */}
+          <div id="rsvp-answer" className="mt-16 text-center">
+            <h3 className="mb-3 font-display text-3xl text-ink md:text-4xl">
+              Will you join us?
+            </h3>
+            <p className="mx-auto mb-8 max-w-xs font-serif text-base leading-relaxed text-ink-soft">
+              This RSVP covers the whole evening — drinks, ceremony and
+              reception together.
+            </p>
+            <div className="flex flex-col justify-center gap-3 sm:flex-row">
+              {(
+                [
+                  ["attending", "Will Attend"],
+                  ["not-attending", "Will Not Attend"],
+                ] as const
+              ).map(([value, label]) => {
+                const active = answer === value;
+                return (
+                  <button
+                    key={value}
+                    type="button"
+                    onClick={() => {
+                      setAnswer(value);
+                      setAnswerMissing(false);
+                    }}
+                    className={`border px-6 py-3 font-serif text-xs uppercase tracking-caps transition-colors ${
+                      active
+                        ? "border-cornflower bg-cornflower text-white"
+                        : answerMissing
+                          ? "border-rose text-ink hover:border-cornflower"
+                          : "border-line text-ink hover:border-cornflower"
+                    }`}
+                  >
+                    {label}
+                  </button>
+                );
+              })}
+            </div>
+            {answerMissing && (
+              <p className="mt-3 font-serif text-xs text-rose">
+                Please select one
+              </p>
+            )}
+          </div>
 
           {result && !result.success && (
             <p className="mt-10 text-center font-serif text-rose text-4xl">

@@ -3,7 +3,7 @@ import { SprigDivider } from "./FloralDecorations";
 export default function WeddingDay() {
   const events = [
     {
-      time: "20:15",
+      time: "19:00",
       title: "Welcome Drinks",
       description:
         "Grab a homemade lemonade or a glass of cold water while we get ready.",
@@ -21,7 +21,7 @@ export default function WeddingDay() {
       ),
     },
     {
-      time: "20:30",
+      time: "19:30",
       title: "Wedding Ceremony",
       description:
         "In the chapel. A few seats are set out for those who need to sit. There’s a stand with rice & flower petals — if you’re not sure what to do, just follow the crowd.",
@@ -38,7 +38,7 @@ export default function WeddingDay() {
       ),
     },
     {
-      time: "21:00",
+      time: "20:20",
       title: "Cocktail Hour & Canapés",
       description:
         "A few bites to get you going, plus a signature cocktail or a glass of bubbly.",
@@ -55,7 +55,7 @@ export default function WeddingDay() {
       ),
     },
     {
-      time: "21:30",
+      time: "21:15",
       title: "Wedding Reception",
       description:
         "We’ll be seated outside, right on the beach — it can get chilly at night, so bring a shawl or something cosy. Dinner and drinks all around.",

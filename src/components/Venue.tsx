@@ -3,15 +3,28 @@ import { SprigDivider } from "./FloralDecorations";
 type Hotel = { name: string; href: string; note?: string; airbnb?: boolean };
 
 const hotels: Hotel[] = [
-  { name: "Golden Coast", href: "https://goldencoast.gr/" },
+  {
+    name: "Zeus Essence Ramada Athens",
+    href: "https://www.zeusintl.com/zeus-essence-ramada-athens",
+  },
+  {
+    name: "Ramada Athens Club Attica Riviera",
+    href: "https://www.wyndhamhotels.com/ramada/nea-makri-greece/ramada-athens-club-attica-riviera/overview?CID=LC:wmcic5n98gs1g0r:51120&iata=00093796",
+  },
+  { name: "NLH Athens-Mati", href: "https://www.nlh.gr/hotels/athens-mati/" },
   { name: "Cabo Verde", href: "https://www.caboverde.gr/" },
   {
     name: "Marathon Beach Resort",
     href: "https://www.marathonbeachresort.com/",
   },
+  { name: "Golden Coast", href: "https://goldencoast.gr/" },
+  {
+    name: "Thomas Beach Hotel",
+    href: "https://www.thomasbeachhotel.com.gr/",
+  },
   {
     name: "Airbnb near the venue",
-    href: "https://tinyurl.com/59xshmbm",
+    href: "https://shorturl.at/BPv7d",
     note: "Self-catering stays",
     airbnb: true,
   },
