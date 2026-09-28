@@ -3,83 +3,11 @@
 import { useState } from "react";
 import { SprigDivider } from "./FloralDecorations";
 
-// The night guests scroll through — a single itinerary, one RSVP for the
-// whole evening. There's no opting in or out of individual events.
-type RsvpEvent = {
-  id: "welcome" | "ceremony" | "reception";
-  name: string;
-  date: string;
-  time: string;
-  venue: string;
-  address: string[];
-  note: string;
-};
-
-const events: RsvpEvent[] = [
-  {
-    id: "welcome",
-    name: "Welcome Drinks",
-    date: "Saturday, August 21, 2027",
-    time: "7:00 PM",
-    venue: "Galázia Aktí Schiniás",
-    address: [
-      "206 Leof. Poseidonos, 190 07",
-      "Schinias Beach, Marathónas (Nr Athens), Greece",
-    ],
-    note: "Homemade lemonade and a glass of something cold while we get ready.",
-  },
-  {
-    id: "ceremony",
-    name: "Wedding Ceremony",
-    date: "Saturday, August 21, 2027",
-    time: "7:30 PM",
-    venue: "Galázia Aktí Schiniás",
-    address: [
-      "The chapel, on the beach",
-      "Schinias Beach, Marathónas (Nr Athens), Greece",
-    ],
-    note: "A few seats are set out for those who need them — otherwise just follow the crowd.",
-  },
-  {
-    id: "reception",
-    name: "Wedding Reception",
-    date: "Saturday, August 21, 2027",
-    time: "9:15 PM",
-    venue: "Galázia Aktí Schiniás",
-    address: [
-      "Right on the beach",
-      "Schinias Beach, Marathónas (Nr Athens), Greece",
-    ],
-    note: "There’s an outdoor space that can get a little chilly at night — we recommend bringing a shawl or light jacket.",
-  },
-];
-
 type Answer = "attending" | "not-attending" | "";
 
 interface SubmitResponse {
   success: boolean;
   message: string;
-}
-
-function NextEvent() {
-  return (
-    <div className="my-12 flex flex-col items-center">
-      <p className="font-serif text-[0.7rem] uppercase tracking-caps text-ink-soft">
-        Next Event
-      </p>
-      <span className="mt-3 flex h-7 w-7 items-center justify-center rounded-full bg-ink text-bg">
-        <svg
-          className="h-3.5 w-3.5"
-          fill="none"
-          strokeWidth="2"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-        </svg>
-      </span>
-    </div>
-  );
 }
 
 const inputClass =
@@ -153,9 +81,7 @@ export default function RSVP() {
           dietary: dietary.trim(),
           songRequest: songRequest.trim(),
           additionalGuests: attending ? validGuests : [],
-          message: attending
-            ? "Attending the full evening"
-            : "Not attending",
+          message: attending ? "Attending the full evening" : "Not attending",
         }),
       });
       const data = await response.json();
@@ -200,17 +126,11 @@ export default function RSVP() {
       className="relative scroll-mt-24 py-24 md:scroll-mt-28 md:py-28"
     >
       <div className="mx-auto max-w-3xl">
-        {/* Heading + intro */}
+        {/* Heading */}
         <div className="text-center">
           <h2 className="font-display text-4xl text-ink md:text-5xl lg:text-6xl">
             RSVP
           </h2>
-          <p className="mx-auto mt-6 max-w-md font-serif text-lg leading-relaxed text-ink-soft">
-            One RSVP for the whole night — drinks, ceremony, and reception
-            together. No partial attendance, we promise it&rsquo;ll be worth
-            staying for all of it.
-          </p>
-          <SprigDivider className="mt-8" />
         </div>
 
         <form onSubmit={handleSubmit} className="mt-12">
@@ -299,44 +219,8 @@ export default function RSVP() {
             </button>
           </div>
 
-          {events.map((event, index) => (
-            <div key={event.id}>
-              {/* Event title */}
-              <h3 className="mt-14 mb-8 text-center font-display text-3xl text-ink md:text-4xl">
-                {event.name}
-              </h3>
-
-              <div className="text-center">
-                <p className="font-serif text-sm uppercase tracking-caps text-ink">
-                  {event.date}
-                </p>
-                <p className="mt-3 font-serif text-sm uppercase tracking-caps text-ink-soft">
-                  {event.time}
-                </p>
-                <p className="mt-5 font-display text-lg text-ink">
-                  {event.venue}
-                </p>
-                {event.address.map((line) => (
-                  <p key={line} className="font-serif text-lg text-ink-soft">
-                    {line}
-                  </p>
-                ))}
-                <p className="mx-auto mt-5 max-w-xs font-serif text-base leading-relaxed text-ink-soft">
-                  {event.note}
-                </p>
-              </div>
-
-              {index < events.length - 1 && (
-                <>
-                  <NextEvent />
-                  <div className="rule" />
-                </>
-              )}
-            </div>
-          ))}
-
           {/* One RSVP, for the whole night */}
-          <div id="rsvp-answer" className="mt-16 text-center">
+          <div id="rsvp-answer" className="mt-14 text-center">
             <h3 className="mb-3 font-display text-3xl text-ink md:text-4xl">
               Will you join us?
             </h3>
